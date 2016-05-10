@@ -6,6 +6,7 @@
 package gradebookproject;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +19,8 @@ import javafx.scene.control.TableView;
  * @author csstudent
  */
 public class UserInterfaceController implements Initializable {
+    
+    private static List<ClassSection> sections;
     
     @FXML
     private TableView gradebook;
