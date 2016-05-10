@@ -35,4 +35,8 @@ public class UserInterfaceController implements Initializable {
         // TODO
     }    
     
+    public void close() {
+        System.exit(0);
+    }
+    
 }
