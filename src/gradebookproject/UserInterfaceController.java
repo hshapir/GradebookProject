@@ -12,7 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
+import javafx.scene.layout.GridPane;
 
 /**
  *
@@ -23,7 +23,7 @@ public class UserInterfaceController implements Initializable {
     private static List<ClassSection> sections;
     
     @FXML
-    private TableView gradebook;
+    private GridPane gradebook;
     
     @FXML
     private MenuItem closeButton;
