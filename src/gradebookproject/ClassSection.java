@@ -6,6 +6,7 @@
 package gradebookproject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -13,6 +14,12 @@ import java.util.ArrayList;
  */
 class ClassSection {
      private ArrayList<Student> students;
+     private ArrayList<Assignment> assignments;
+     
+     public ClassSection(){
+         students = new ArrayList<Student>();
+         assignments = new ArrayList<Assignment>();
+     }
     
     
     public void addStudent(Student newStudent){
@@ -23,7 +30,11 @@ class ClassSection {
         students.remove(thisStudent);
     }
     
-    public ArrayList getStudentList(){
+    public void addAssignment(Assignment a){
+        assignments.add(a);
+    }
+    
+    public List<Student> getStudentList(){
         return students;
     }
     

@@ -12,12 +12,18 @@ import java.util.*;
  * @author brucemelton
  */
 public class Student {
-    private String name = new String();
-    private ArrayList<Assignment> assignments = new ArrayList();
+    private String name;
+    private ClassSection enrolledClass;
+    private List<Integer> scores = new ArrayList<Integer>();
     
-    public ArrayList getAssignments(){
-        return assignments;
+    public Student(ClassSection c, String n) {
+        name = n;
+        enrolledClass = c;
+        for(Assignment a : enrolledClass.getAssignments()){
+            scores.add(new Integer(0));
+        }
     }
+
     
     public String getName(){
         return name;

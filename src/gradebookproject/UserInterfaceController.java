@@ -46,7 +46,7 @@ public class UserInterfaceController implements Initializable {
             columns.add(new TableColumn(a.toString));
         }
         gradebook.getColumns().addAll(columns);
-        for(Student s : currentSection.getStudents()){
+        for(Student s : currentSection.getStudentList()){
             gradebook.addRow(rowIndex, s.gradeDisplay());
         }
         
