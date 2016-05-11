@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 /**
  *
@@ -40,7 +41,9 @@ public class UserInterfaceController implements Initializable {
     
     public void updateTable(){
         gradebook.setEditable(false);
-        gradebook.addRow(0, currentSection.getAssignments());
+        TableColumn students = new TableColumn("Students");
+        students.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
+        gradebook.set(currentSection.getAssignments()));
         List<TableColumn> columns = new ArrayList<TableColumn>();
         for(Assignment a : currentSection.getAssignments()){
             columns.add(new TableColumn(a.toString));
