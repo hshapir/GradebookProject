@@ -40,7 +40,7 @@ public class UserInterfaceController implements Initializable {
     
     public void updateTable(){
         gradebook.setEditable(false);
-        gradebook.addRow(0, currentSection.getAssignmentsInStringForm());
+        gradebook.addRow(0, currentSection.getAssignments());
         List<TableColumn> columns = new ArrayList<TableColumn>();
         for(Assignment a : currentSection.getAssignments()){
             columns.add(new TableColumn(a.toString));

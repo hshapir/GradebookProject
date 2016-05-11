@@ -34,6 +34,10 @@ class ClassSection {
         assignments.add(a);
     }
     
+    public List<Assignment> getAssignments(){
+        return assignments;
+    }
+    
     public List<Student> getStudentList(){
         return students;
     }
