@@ -15,6 +15,7 @@ public class Student {
     private String name;
     private ClassSection enrolledClass;
     private List<Integer> scores = new ArrayList<Integer>();
+    private int average;
     
     public Student(ClassSection c, String n) {
         name = n;
@@ -24,6 +25,20 @@ public class Student {
         }
     }
 
+    public int getAverage(){
+        int sum = 0;
+        int numScores = 0;
+        if(scores.size()>0){
+            for(int i = 0; i<scores.size(); i++){
+                sum+=scores.get(i);
+                numScores++;
+            }
+            average = sum/numScores;
+        return average;
+        }
+        return 100;
+        
+    }
     
     public String getName(){
         return name;

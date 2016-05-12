@@ -12,6 +12,11 @@ import java.util.*;
  * @author brucemelton
  */
 public class Assignment {
-    private ArrayList<String> assignmentNames = new ArrayList();
-    //blah
+    private String name;
+    
+    public Assignment(String n){
+        name = n;
+        
+    }
+    
 }
