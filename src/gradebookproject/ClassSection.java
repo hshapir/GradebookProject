@@ -34,6 +34,10 @@ class ClassSection {
         assignments.add(a);
     }
     
+    public void removeAssignment(Assignment a){
+        
+    }
+    
     public List<Assignment> getAssignments(){
         return assignments;
     }
