@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,23 +37,40 @@ public class UserInterfaceController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        currentSection = new ClassSection();
+        currentSection.addStudent(new Student(currentSection, "John"));
+        currentSection.addStudent(new Student(currentSection, "Jane"));
+        currentSection.addStudent(new Student(currentSection, "David"));
+        
         updateTable();
     }    
     
     public void updateTable(){
+        gradebook = new TableView<Student>();
+        gradebook.setItems(currentSection.getObservableStudentList());
         gradebook.setEditable(false);
-        TableColumn students = new TableColumn("Students");
-        students.setCellValueFactory(new PropertyValueFactory<Student, String>("name"));
-        gradebook.set(currentSection.getAssignments()));
-        List<TableColumn> columns = new ArrayList<TableColumn>();
+        TableColumn students = new TableColumn<Student, String>("Students");
+        students.setCellValueFactory(new PropertyValueFactory("name"));
+        gradebook.getColumns().setAll(students);
+        /*List<TableColumn> columns = new ArrayList<TableColumn>();
         for(Assignment a : currentSection.getAssignments()){
-            columns.add(new TableColumn(a.toString));
+            columns.add(new TableColumn(a.toString()));
         }
+        
+        for(int i = 0; i < columns.size(); i++){
+            TableColumn currentColumn = columns.get(i);
+            currentColumn.setCellValueFactory(new PropertyValueFactory<>)
+        }
+            
+            
         gradebook.getColumns().addAll(columns);
         for(Student s : currentSection.getStudentList()){
             gradebook.addRow(rowIndex, s.gradeDisplay());
-        }
+        }*/
+    }
         
+    public void close() {
+        System.exit(0);
     }
     
 }

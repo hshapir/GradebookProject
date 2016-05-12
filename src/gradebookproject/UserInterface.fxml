@@ -15,9 +15,24 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem fx:id="closeButton" mnemonicParsing="false" text="Close" />
+                        <MenuItem mnemonicParsing="false" onAction="#updateTable" text="Update" />
+                    <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#close" text="Close" />
+                        <MenuItem mnemonicParsing="false" text="Save" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Change Assignment" />
+                        <MenuItem mnemonicParsing="false" text="Create Assignment" />
+                        <MenuItem mnemonicParsing="false" text="Delete Assignment" />
+                        <MenuItem mnemonicParsing="false" text="Rename Student" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="View">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Grade Calculator" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </top>

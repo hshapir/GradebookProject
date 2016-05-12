@@ -7,13 +7,16 @@ package gradebookproject;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 
 /**
  *
  * @author csstudent
  */
 class ClassSection {
-     private ArrayList<Student> students;
+     private List<Student> students;
      private ArrayList<Assignment> assignments;
      
      public ClassSection(){
@@ -44,6 +47,14 @@ class ClassSection {
     
     public List<Student> getStudentList(){
         return students;
+    }
+    
+    public ObservableList<Student> getObservableStudentList(){
+        ObservableList<Student> ret = FXCollections.observableArrayList();
+        for(Student s : students){
+            ret.add(s);
+        }
+        return ret;
     }
     
 }
