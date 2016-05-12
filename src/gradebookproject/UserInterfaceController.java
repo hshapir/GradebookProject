@@ -5,6 +5,7 @@
  */
 package gradebookproject;
 
+import javafx.geometry.Insets;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +14,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.text.Font;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.VBox;
 
 /**
  *
@@ -46,12 +52,24 @@ public class UserInterfaceController implements Initializable {
     }    
     
     public void updateTable(){
+        
+        
+        final Label label = new Label("Gradebook");
+        //label.setFont(new Font("Times", 20));
+        
         gradebook = new TableView<Student>();
         gradebook.setItems(currentSection.getObservableStudentList());
-        gradebook.setEditable(false);
+        gradebook.setEditable(true);
         TableColumn students = new TableColumn<Student, String>("Students");
         students.setCellValueFactory(new PropertyValueFactory("name"));
-        gradebook.getColumns().setAll(students);
+        gradebook.getColumns().addAll(students);
+        
+        final VBox vbox = new VBox();
+        vbox.setSpacing(5);
+        vbox.setPadding(new Insets(10, 0, 0, 10));
+        vbox.getChildren().addAll(label, gradebook);
+
+
         /*List<TableColumn> columns = new ArrayList<TableColumn>();
         for(Assignment a : currentSection.getAssignments()){
             columns.add(new TableColumn(a.toString()));
