@@ -32,6 +32,7 @@ public class GradebookProject extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+
     }
     
 }
