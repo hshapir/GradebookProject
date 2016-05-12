@@ -67,6 +67,7 @@ public class UserInterfaceController implements Initializable {
         for(Student s : currentSection.getStudentList()){
             gradebook.addRow(rowIndex, s.gradeDisplay());
         }*/
+    }
         
     public void close() {
         System.exit(0);
