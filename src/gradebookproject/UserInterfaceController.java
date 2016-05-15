@@ -54,20 +54,20 @@ public class UserInterfaceController implements Initializable {
     public void updateTable(){
         
         
-        final Label label = new Label("Gradebook");
+        //final Label label = new Label("Gradebook");
         //label.setFont(new Font("Times", 20));
         
-        gradebook = new TableView<Student>();
+        //gradebook = new TableView<Student>();
         gradebook.setItems(currentSection.getObservableStudentList());
         gradebook.setEditable(true);
         TableColumn students = new TableColumn<Student, String>("Students");
         students.setCellValueFactory(new PropertyValueFactory("name"));
         gradebook.getColumns().addAll(students);
         
-        final VBox vbox = new VBox();
+        /*final VBox vbox = new VBox();
         vbox.setSpacing(5);
         vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, gradebook);
+        vbox.getChildren().addAll(label, gradebook);*/
 
 
         /*List<TableColumn> columns = new ArrayList<TableColumn>();
