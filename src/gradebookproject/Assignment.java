@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author brucemelton
  */
-public class Assignment {
+public class Assignment implements Comparable<Assignment>{
     private ClassSection section;
     private String name;
     private Map<Student, Integer> scores;
@@ -41,6 +41,13 @@ public class Assignment {
     @Override
     public String toString(){
         return name;
+    }
+    
+    public int compareTo(Assignment a){
+        if(name.equals(a.toString())){
+            return 0;
+        }
+        return 1;
     }
     
 }
