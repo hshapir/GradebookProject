@@ -5,26 +5,19 @@
  */
 package gradebookproject;
 
-import javafx.geometry.Insets;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
-import javafx.scene.text.Font;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.MapValueFactory;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.cell.TextFieldTableCell;
 
 /**
  *
@@ -66,6 +59,18 @@ public class UserInterfaceController implements Initializable {
         gradebook.setEditable(true);
         TableColumn<Map, String> students = new TableColumn<>("Students");
         students.setCellValueFactory(new MapValueFactory("Students"));
+        students.setCellFactory(TextFieldTableCell.forTableColumn());
+        students.setOnEditCommit(
+                new EventHandler<CellEditEvent<Map, String>>() {
+                @Override
+                    public void handle(CellEditEvent<Map, String> t) {
+                        String oldName = t.getTableView().getItems().get(t.getTablePosition().getRow()).get("Students").toString();
+                        Student editedStudent = currentSection.findStudent(oldName);
+                        editedStudent.setName(t.getNewValue());
+                    }
+                }
+        
+        );
         gradebook.getColumns().addAll(students);
         
         for(Assignment a : currentSection.getAssignments()){

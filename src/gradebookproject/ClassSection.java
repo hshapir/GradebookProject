@@ -39,6 +39,15 @@ class ClassSection {
         assignments.add(a);
     }
     
+    public Student findStudent(String s){
+        for(Student stud : students){
+            if( stud.toString().equals(s)){
+                return stud;
+            }
+        }
+        return null;
+    }
+    
     public void removeAssignment(Assignment a){
         
     }
