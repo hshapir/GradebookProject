@@ -33,6 +33,11 @@ public class Assignment implements Comparable<Assignment>{
         }
     }
     
+    public void setGrade(Student s, Integer i){
+        scores.remove(s);
+        scores.put(s, i);
+    }
+    
     public String getGrade(Student s){
         updateStudentMap();
         return scores.get(s).toString();

@@ -49,6 +49,7 @@ public class UserInterfaceController implements Initializable {
     }    
     
     public void updateTable(){
+        gradebook.getColumns().removeAll();
         
         
         //final Label label = new Label("Gradebook");
@@ -76,6 +77,18 @@ public class UserInterfaceController implements Initializable {
         for(Assignment a : currentSection.getAssignments()){
             TableColumn<Map, String> newColumn = new TableColumn<>(a.toString());
             newColumn.setCellValueFactory(new MapValueFactory(a.toString()));
+            newColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+            newColumn.setOnEditCommit(
+                new EventHandler<CellEditEvent<Map, String>>() {
+                @Override
+                    public void handle(CellEditEvent<Map, String> t) {
+                        String studentName = t.getTableView().getItems().get(t.getTablePosition().getRow()).get("Students").toString();
+                        Student modifiedGradeStudent = currentSection.findStudent(studentName);
+                        a.setGrade(modifiedGradeStudent, Integer.parseInt(t.getNewValue()));
+                    }
+                }
+        
+        );
             gradebook.getColumns().addAll(newColumn);
             
         }
