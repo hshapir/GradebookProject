@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +22,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.text.Font;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 
@@ -47,7 +49,9 @@ public class UserInterfaceController implements Initializable {
         currentSection.addStudent(new Student(currentSection, "John"));
         currentSection.addStudent(new Student(currentSection, "Jane"));
         currentSection.addStudent(new Student(currentSection, "David"));
-        
+        currentSection.addAssignment(new Assignment(currentSection, "Test"));
+        currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
+        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
         updateTable();
     }    
     
@@ -58,11 +62,18 @@ public class UserInterfaceController implements Initializable {
         //label.setFont(new Font("Times", 20));
         
         //gradebook = new TableView<Student>();
-        gradebook.setItems(currentSection.getObservableStudentList());
+        gradebook.setItems(currentSection.getObservableStudentMap());
         gradebook.setEditable(true);
-        TableColumn students = new TableColumn<Student, String>("Students");
-        students.setCellValueFactory(new PropertyValueFactory("name"));
+        TableColumn<Map, String> students = new TableColumn<>("Students");
+        students.setCellValueFactory(new MapValueFactory("Students"));
         gradebook.getColumns().addAll(students);
+        
+        for(Assignment a : currentSection.getAssignments()){
+            TableColumn<Map, String> newColumn = new TableColumn<>(a.toString());
+            newColumn.setCellValueFactory(new MapValueFactory(a.toString()));
+            gradebook.getColumns().addAll(newColumn);
+            
+        }
         
         /*final VBox vbox = new VBox();
         vbox.setSpacing(5);

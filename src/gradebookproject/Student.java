@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author brucemelton
  */
-public class Student {
+public class Student implements Comparable<Student>{
     private String name;
     private ClassSection enrolledClass;
     private List<Integer> scores = new ArrayList<Integer>();
@@ -48,5 +48,16 @@ public class Student {
         name = newName;
     }
     
+    @Override
+    public String toString(){
+        return name;
+    }
+    
+    public int compareTo(Student s){
+        if(name.equals(s.toString())){
+            return 0;
+        }
+        return 1;
+    }
     
 }

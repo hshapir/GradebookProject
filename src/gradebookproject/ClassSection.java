@@ -6,7 +6,9 @@
 package gradebookproject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -55,6 +57,19 @@ class ClassSection {
             ret.add(s);
         }
         return ret;
+    }
+    
+    public ObservableList<Map> getObservableStudentMap(){
+        ObservableList<Map> allData = FXCollections.observableArrayList();
+        for(Student s : students){
+            Map<String, String> dataRow = new HashMap<>();
+            dataRow.put("Students", s.toString());
+            for(Assignment a : assignments){
+                dataRow.put(a.toString(), a.getGrade(s));
+            }
+            allData.add(dataRow);
+        }
+        return allData;
     }
     
 }

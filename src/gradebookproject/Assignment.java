@@ -12,11 +12,35 @@ import java.util.*;
  * @author brucemelton
  */
 public class Assignment {
+    private ClassSection section;
     private String name;
+    private Map<Student, Integer> scores;
     
-    public Assignment(String n){
+    
+    public Assignment(ClassSection c, String n){
+        section = c;
         name = n;
-        
+        scores = new TreeMap<Student, Integer>();
+        updateStudentMap();
+    }
+    
+    public void updateStudentMap(){
+        for(Student s : section.getStudentList()){
+            if(!scores.keySet().contains(s)){
+                scores.put(s, 100);
+            }
+            
+        }
+    }
+    
+    public String getGrade(Student s){
+        updateStudentMap();
+        return scores.get(s).toString();
+    }
+    
+    @Override
+    public String toString(){
+        return name;
     }
     
 }
