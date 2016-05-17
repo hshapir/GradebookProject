@@ -83,7 +83,7 @@ public class UserInterfaceController implements Initializable {
                     public void handle(CellEditEvent<Map, String> t) {
                         String studentName = t.getTableView().getItems().get(t.getTablePosition().getRow()).get("Students").toString();
                         Student modifiedGradeStudent = currentSection.findStudent(studentName);
-                        a.setGrade(modifiedGradeStudent, Integer.parseInt(t.getNewValue()));
+                        a.setGrade(modifiedGradeStudent, Double.parseDouble(t.getNewValue()));
                         modifiedGradeStudent.updateAverage();
                         updateTable();
                     }

@@ -14,26 +14,26 @@ import java.util.*;
 public class Assignment implements Comparable<Assignment>{
     private ClassSection section;
     private String name;
-    private Map<Student, Integer> scores;
+    private Map<Student, Double> scores;
     
     
     public Assignment(ClassSection c, String n){
         section = c;
         name = n;
-        scores = new TreeMap<Student, Integer>();
+        scores = new TreeMap<Student, Double>();
         updateStudentMap();
     }
     
     public void updateStudentMap(){
         for(Student s : section.getStudentList()){
             if(!scores.keySet().contains(s)){
-                scores.put(s, 100);
+                scores.put(s, 100.);
             }
             
         }
     }
     
-    public void setGrade(Student s, Integer i){
+    public void setGrade(Student s, Double i){
         scores.remove(s);
         scores.put(s, i);
     }
