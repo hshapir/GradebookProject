@@ -54,7 +54,7 @@ public class UserInterfaceController implements Initializable {
     public void updateTable(){
         //This prevents the table from creating a new table without deleting the old one
         gradebook.getColumns().removeAll(gradebook.getColumns());
-
+        //This sets the data set to the 
         gradebook.setItems(currentSection.getObservableStudentMap());
         gradebook.setEditable(true);
         TableColumn<Map, String> students = new TableColumn<>("Students");
@@ -96,8 +96,12 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
         averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
         gradebook.getColumns().addAll(averageScores);
+        updateMenu();
         
-        
+    }
+    
+    public void updateMenu(){
+        //Give submenus for deleting and modifying assignments and deleting students
     }
         
     public void close() {

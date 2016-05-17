@@ -49,7 +49,7 @@ class ClassSection {
     }
     
     public void removeAssignment(Assignment a){
-        
+        assignments.remove(assignments.indexOf(a));
     }
     
     public List<Assignment> getAssignments(){
