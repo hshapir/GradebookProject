@@ -49,7 +49,7 @@ public class UserInterfaceController implements Initializable {
     }    
     
     public void updateTable(){
-        gradebook.getColumns().removeAll();
+        gradebook.getColumns().removeAll(gradebook.getColumns());
         
         
         //final Label label = new Label("Gradebook");
@@ -85,6 +85,8 @@ public class UserInterfaceController implements Initializable {
                         String studentName = t.getTableView().getItems().get(t.getTablePosition().getRow()).get("Students").toString();
                         Student modifiedGradeStudent = currentSection.findStudent(studentName);
                         a.setGrade(modifiedGradeStudent, Integer.parseInt(t.getNewValue()));
+                        modifiedGradeStudent.updateAverage();
+                        updateTable();
                     }
                 }
         
@@ -92,6 +94,9 @@ public class UserInterfaceController implements Initializable {
             gradebook.getColumns().addAll(newColumn);
             
         }
+        TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
+        averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
+        gradebook.getColumns().addAll(averageScores);
         
         /*final VBox vbox = new VBox();
         vbox.setSpacing(5);

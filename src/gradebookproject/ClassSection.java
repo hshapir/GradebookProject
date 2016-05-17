@@ -76,6 +76,11 @@ class ClassSection {
             for(Assignment a : assignments){
                 dataRow.put(a.toString(), a.getGrade(s));
             }
+            if(s.getAverage().toString().length() < 5){
+                dataRow.put("Average Score", s.getAverage().toString());
+            } else{
+            dataRow.put("Average Score", s.getAverage().toString().substring(0, 5));
+            }
             allData.add(dataRow);
         }
         return allData;

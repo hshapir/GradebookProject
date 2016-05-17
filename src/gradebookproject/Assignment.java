@@ -40,7 +40,10 @@ public class Assignment implements Comparable<Assignment>{
     
     public String getGrade(Student s){
         updateStudentMap();
-        return scores.get(s).toString();
+        if(scores.containsKey(s)){
+            return scores.get(s).toString();
+        }
+        return null;
     }
     
     @Override

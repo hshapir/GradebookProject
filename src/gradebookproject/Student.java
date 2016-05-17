@@ -15,7 +15,7 @@ public class Student implements Comparable<Student>{
     private String name;
     private ClassSection enrolledClass;
     private List<Integer> scores = new ArrayList<Integer>();
-    private int average;
+    private Double average;
     
     public Student(ClassSection c, String n) {
         name = n;
@@ -23,21 +23,27 @@ public class Student implements Comparable<Student>{
         for(Assignment a : enrolledClass.getAssignments()){
             scores.add(new Integer(0));
         }
+        updateAverage();
     }
 
-    public int getAverage(){
-        int sum = 0;
-        int numScores = 0;
-        if(scores.size()>0){
-            for(int i = 0; i<scores.size(); i++){
-                sum+=scores.get(i);
-                numScores++;
+    public void updateAverage(){
+        double sum = 0;
+        double numGrades = 0;
+        for(Assignment a : enrolledClass.getAssignments()){
+            if(a.getGrade(this) != null){
+                sum += Double.parseDouble(a.getGrade(this));
+                numGrades++;
             }
-            average = sum/numScores;
-        return average;
         }
-        return 100;
-        
+        if(numGrades > 0){
+            average = sum/numGrades;
+        } else {
+        average = 100.0;
+        }
+    }
+    
+    public Double getAverage(){
+        return average;
     }
     
     public String getName(){
