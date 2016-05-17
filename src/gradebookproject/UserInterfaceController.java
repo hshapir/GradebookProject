@@ -47,6 +47,9 @@ public class UserInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         currentSection = new ClassSection();
+        /** This just creates some tester students and assignments
+         * and won't be present in the actual program
+        */
         currentSection.addStudent(new Student(currentSection, "John"));
         currentSection.addStudent(new Student(currentSection, "Jane"));
         currentSection.addStudent(new Student(currentSection, "David"));
@@ -57,13 +60,9 @@ public class UserInterfaceController implements Initializable {
     }    
     
     public void updateTable(){
+        //This prevents the table from creating a new table without deleting the old one
         gradebook.getColumns().removeAll(gradebook.getColumns());
-        
-        
-        //final Label label = new Label("Gradebook");
-        //label.setFont(new Font("Times", 20));
-        
-        //gradebook = new TableView<Student>();
+        //This sets the data set to the 
         gradebook.setItems(currentSection.getObservableStudentMap());
         gradebook.setEditable(true);
         TableColumn<Map, String> students = new TableColumn<>("Students");
@@ -105,28 +104,12 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
         averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
         gradebook.getColumns().addAll(averageScores);
+        updateMenu();
         
-        /*final VBox vbox = new VBox();
-        vbox.setSpacing(5);
-        vbox.setPadding(new Insets(10, 0, 0, 10));
-        vbox.getChildren().addAll(label, gradebook);*/
-
-
-        /*List<TableColumn> columns = new ArrayList<TableColumn>();
-        for(Assignment a : currentSection.getAssignments()){
-            columns.add(new TableColumn(a.toString()));
-        }
-        
-        for(int i = 0; i < columns.size(); i++){
-            TableColumn currentColumn = columns.get(i);
-            currentColumn.setCellValueFactory(new PropertyValueFactory<>)
-        }
-            
-            
-        gradebook.getColumns().addAll(columns);
-        for(Student s : currentSection.getStudentList()){
-            gradebook.addRow(rowIndex, s.gradeDisplay());
-        }*/
+    }
+    
+    public void updateMenu(){
+        //Give submenus for deleting and modifying assignments and deleting students
     }
         
     public void close() {
