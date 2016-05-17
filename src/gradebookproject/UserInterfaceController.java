@@ -121,10 +121,10 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void addStudent(){
-        TextInputDialog dialog = new TextInputDialog("walter");
-        dialog.setTitle("Text Input Dialog");
-        dialog.setHeaderText("Look, a Text Input Dialog");
-        dialog.setContentText("Please enter your name:");
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Add Student");
+        dialog.setHeaderText("");
+        dialog.setContentText("Name:");
 
         // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
@@ -133,6 +133,6 @@ public class UserInterfaceController implements Initializable {
         }
 
         // The Java 8 way to get the response value (with lambda expression).
-        result.ifPresent(name -> System.out.println("Your name: " + name));
+        //result.ifPresent(name -> System.out.println("Your name: " + name));
     }
 }
