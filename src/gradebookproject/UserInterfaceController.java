@@ -104,7 +104,8 @@ public class UserInterfaceController implements Initializable {
         System.exit(0);
     }
     
-    public double calculate() {
-        return -1;
+    public void editAssignment() {
+        currentSection.getAssignments();
+        updateTable();
     }
 }
