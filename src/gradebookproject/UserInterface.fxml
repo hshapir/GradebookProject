@@ -24,7 +24,8 @@
                         <MenuItem mnemonicParsing="false" text="Change Assignment" />
                         <MenuItem mnemonicParsing="false" text="Create Assignment" />
                         <MenuItem mnemonicParsing="false" text="Delete Assignment" />
-                        <MenuItem mnemonicParsing="false" text="Add Student" />
+                        <MenuItem mnemonicParsing="false" text="Rename Student" />
+                        <MenuItem fx:id="addStudentButton" mnemonicParsing="false" onAction="#addStudent" text="Add Student" />
                         <MenuItem mnemonicParsing="false" text="Delete Student" />
                     </items>
                   </Menu>

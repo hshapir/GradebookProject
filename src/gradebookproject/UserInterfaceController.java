@@ -8,16 +8,21 @@ package gradebookproject;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+
+
 
 /**
  *
@@ -33,6 +38,9 @@ public class UserInterfaceController implements Initializable {
     
     @FXML
     private MenuItem closeButton;
+    
+    @FXML
+    private MenuItem addStudentButton;
     
     
     
@@ -54,7 +62,7 @@ public class UserInterfaceController implements Initializable {
     public void updateTable(){
         //This prevents the table from creating a new table without deleting the old one
         gradebook.getColumns().removeAll(gradebook.getColumns());
-
+        //This sets the data set to the 
         gradebook.setItems(currentSection.getObservableStudentMap());
         gradebook.setEditable(true);
         TableColumn<Map, String> students = new TableColumn<>("Students");
@@ -96,8 +104,12 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
         averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
         gradebook.getColumns().addAll(averageScores);
+        updateMenu();
         
-        
+    }
+    
+    public void updateMenu(){
+        //Give submenus for deleting and modifying assignments and deleting students
     }
         
     public void close() {
@@ -107,5 +119,21 @@ public class UserInterfaceController implements Initializable {
     public void editAssignment() {
         currentSection.getAssignments();
         updateTable();
+    }
+    
+    public void addStudent(){
+        TextInputDialog dialog = new TextInputDialog("walter");
+        dialog.setTitle("Text Input Dialog");
+        dialog.setHeaderText("Look, a Text Input Dialog");
+        dialog.setContentText("Please enter your name:");
+
+        // Traditional way to get the response value.
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
+
+        // The Java 8 way to get the response value (with lambda expression).
+        result.ifPresent(name -> System.out.println("Your name: " + name));
     }
 }
