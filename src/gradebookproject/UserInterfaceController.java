@@ -38,7 +38,7 @@ public class UserInterfaceController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        currentSection = new ClassSection();
+        currentSection = GradebookProject.currentSection;
         /** This just creates some tester students and assignments
          * and won't be present in the actual program
         */
