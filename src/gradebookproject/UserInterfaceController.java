@@ -45,7 +45,20 @@ public class UserInterfaceController implements Initializable {
     @FXML
     private MenuItem SaveButton;
     
+    @FXML
+    private MenuItem deleteStudentButton;
     
+    @FXML
+    private MenuItem renameStudentButton;
+    
+    @FXML
+    private MenuItem deleteAssignmentButton;
+    
+    @FXML
+    private MenuItem createAssignmentButton;
+    
+    @FXML
+    private MenuItem changeAssignmentButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -133,14 +146,66 @@ public class UserInterfaceController implements Initializable {
         dialog.setTitle("Add Student");
         dialog.setHeaderText("");
         dialog.setContentText("Name:");
-
-        // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             System.out.println("Your name: " + result.get());
         }
-
-        // The Java 8 way to get the response value (with lambda expression).
-        //result.ifPresent(name -> System.out.println("Your name: " + name));
+    }
+    
+    public void deleteStudent(){
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Delete Student");
+        dialog.setHeaderText("");
+        dialog.setContentText("Student's Name:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
+    }
+    
+    public void renameStudent(){
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Rename Student");
+        dialog.setHeaderText("");
+        dialog.setContentText("Student's Current Name:");
+        dialog.setContentText("Student's New Name:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
+    }
+    
+    public void deleteAssignment(){
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Delete Assignment");
+        dialog.setHeaderText("");
+        dialog.setContentText("Assignment Name:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
+    }
+    
+    public void createAssignment(){
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Create Assignment");
+        dialog.setHeaderText("");
+        dialog.setContentText("New Assignment Name:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
+    }
+    
+    public void changeAssignment(){
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Change Assignment");
+        dialog.setHeaderText("");
+        dialog.setContentText("Assignment Name:");
+        dialog.setContentText("New Assignment Name:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your name: " + result.get());
+        }
     }
 }
