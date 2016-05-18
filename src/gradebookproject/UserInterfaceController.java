@@ -205,9 +205,8 @@ public class UserInterfaceController implements Initializable {
                 invalidNameAlert.setHeaderText(null);
                 invalidNameAlert.setContentText("You cannot have two students with the same name. Please enter an unused student name or add a '#1' or '#2'");
                 invalidNameAlert.showAndWait();
-                addStudent();
                 } else{
-                currentSection.addStudent(new Student(currentSection, result.get()));
+                currentSection.findStudent(oldName.get()).setName(result.get());
                 }
             }
         }
@@ -274,9 +273,9 @@ public class UserInterfaceController implements Initializable {
 
     public void resetClass() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
+        alert.setTitle("Are You Sure?");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to reset your gradebook? All past students, grades, and assignments will be lost forever");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
