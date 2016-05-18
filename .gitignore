@@ -1,4 +1,6 @@
-*.gbk
+.gbk
+
+
 /dist/
 /build/
 /nbproject/private/
