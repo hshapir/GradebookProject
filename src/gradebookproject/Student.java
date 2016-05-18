@@ -5,13 +5,14 @@
  */
 package gradebookproject;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author brucemelton
  */
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student>, Serializable{
     private String name;
     private ClassSection enrolledClass;
     private List<Integer> scores = new ArrayList<Integer>();

@@ -19,7 +19,7 @@ import javafx.stage.Stage;
  */
 public class GradebookProject extends Application {
     private static List<ClassSection> allClasses;
-    public static ClassSection currentSection;
+    private static ClassSection currentSection;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -49,12 +49,20 @@ public class GradebookProject extends Application {
     
     @Override
     public void stop() {
-        Settings.setClasses(allClasses);
-        Settings.save();
+        GradebookProject.save();
     }
     
     public static ClassSection getCurrentSection(){
         return currentSection;
+    }
+    
+    public static void setCurrentSection(ClassSection cSec){
+        GradebookProject.currentSection = cSec;
+    }
+    
+    public static void save(){
+        Settings.setClasses(allClasses);
+        Settings.save();
     }
     
 }

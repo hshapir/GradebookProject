@@ -5,6 +5,7 @@
  */
 package gradebookproject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,7 @@ import javafx.collections.transformation.SortedList;
  *
  * @author csstudent
  */
-class ClassSection {
+class ClassSection implements Serializable {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
      

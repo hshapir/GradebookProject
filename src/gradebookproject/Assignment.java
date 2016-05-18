@@ -5,13 +5,14 @@
  */
 package gradebookproject;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  *
  * @author brucemelton
  */
-public class Assignment implements Comparable<Assignment>{
+public class Assignment implements Comparable<Assignment>, Serializable{
     private ClassSection section;
     private String name;
     private Map<Student, Double> scores;

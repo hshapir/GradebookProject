@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -30,7 +31,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
  */
 public class UserInterfaceController implements Initializable {
     
-    private static List<ClassSection> sections;
     private static ClassSection currentSection;
     
     @FXML
@@ -42,20 +42,23 @@ public class UserInterfaceController implements Initializable {
     @FXML
     private MenuItem addStudentButton;
     
+    @FXML
+    private MenuItem SaveButton;
+    
     
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        currentSection = GradebookProject.currentSection;
+        currentSection = GradebookProject.getCurrentSection();
         /** This just creates some tester students and assignments
          * and won't be present in the actual program
         */
-        currentSection.addStudent(new Student(currentSection, "John"));
+        /*currentSection.addStudent(new Student(currentSection, "John"));
         currentSection.addStudent(new Student(currentSection, "Jane"));
         currentSection.addStudent(new Student(currentSection, "David"));
         currentSection.addAssignment(new Assignment(currentSection, "Test"));
         currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
-        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
+        currentSection.addAssignment(new Assignment(currentSection, "Homework"));*/
         updateTable();
     }    
     
@@ -113,7 +116,11 @@ public class UserInterfaceController implements Initializable {
     }
         
     public void close() {
-        System.exit(0);
+        Platform.exit();
+    }
+    
+    public void save(){
+        GradebookProject.save();
     }
     
     public void editAssignment() {
