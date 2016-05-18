@@ -21,12 +21,12 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Change Assignment" />
-                        <MenuItem mnemonicParsing="false" text="Create Assignment" />
-                        <MenuItem mnemonicParsing="false" text="Delete Assignment" />
-                        <MenuItem mnemonicParsing="false" text="Rename Student" />
+                        <MenuItem fx:id="changeAssignmentButton" mnemonicParsing="false" onAction="#changeAssignment" text="Change Assignment" />
+                        <MenuItem fx:id="createAssignmentButton" mnemonicParsing="false" onAction="#createAssignment" text="Create Assignment" />
+                        <MenuItem fx:id="deleteAssignmentButton" mnemonicParsing="false" onAction="#deleteAssignment" text="Delete Assignment" />
+                        <MenuItem fx:id="renameStudentButton" mnemonicParsing="false" onAction="#renameStudent" text="Rename Student" />
                         <MenuItem fx:id="addStudentButton" mnemonicParsing="false" onAction="#addStudent" text="Add Student" />
-                        <MenuItem mnemonicParsing="false" text="Delete Student" />
+                        <MenuItem fx:id="deleteStudentButton" mnemonicParsing="false" onAction="#deleteStudent" text="Delete Student" />
                     </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="View">
