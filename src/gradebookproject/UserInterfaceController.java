@@ -185,15 +185,14 @@ public class UserInterfaceController implements Initializable {
     
     public void renameStudent(){
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getNames());
-        dialog.setTitle("Delete Student");
+        dialog.setTitle("Select Student");
         dialog.setHeaderText("");
-        dialog.setContentText("Choose Student:");
+        dialog.setContentText("Choose Student to Rename:");
         Optional<String> oldName = dialog.showAndWait();
         if(oldName.isPresent()){
             TextInputDialog newNameDialog = new TextInputDialog("");
             newNameDialog.setTitle("Rename Student");
             newNameDialog.setHeaderText("");
-            newNameDialog.setContentText("Student's Current Name:");
             TextField newName = new TextField();
             newName.setPromptText("Username");
             newNameDialog.setContentText("Student's New Name:");
@@ -256,15 +255,32 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void changeAssignment(){
-        TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Change Assignment");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getAssignmentNames());
+        dialog.setTitle("Select Assignment");
         dialog.setHeaderText("");
-        dialog.setContentText("Assignment Name:");
-        dialog.setContentText("New Assignment Name:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+        dialog.setContentText("Choose Assignment to Rename:");
+        Optional<String> oldName = dialog.showAndWait();
+        if(oldName.isPresent()){
+            TextInputDialog newNameDialog = new TextInputDialog("");
+            newNameDialog.setTitle("Rename Assignment");
+            newNameDialog.setHeaderText("");
+            TextField newName = new TextField();
+            newName.setPromptText("New Name");
+            newNameDialog.setContentText("Assignment's New Name:");
+            Optional<String> result = newNameDialog.showAndWait();
+            if (result.isPresent()){
+                if(currentSection.findAssignment(result.get()) != null){
+                Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
+                invalidNameAlert.setTitle("Invalid Assignment Name");
+                invalidNameAlert.setHeaderText(null);
+                invalidNameAlert.setContentText("You cannot have two assignments with the same name. Please enter an unused name or a date or number, like 'Test #2' or 'Homework 5/18'");
+                invalidNameAlert.showAndWait();
+                } else{
+                currentSection.findAssignment(oldName.get()).setName(result.get());
+                }
+            }
         }
+        updateTable();
     }
     
     /**

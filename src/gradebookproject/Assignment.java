@@ -38,6 +38,10 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         return name;
     }
     
+    public void setName(String s){
+        name = s;
+    }
+    
     public void setGrade(Student s, Double i){
         scores.remove(s);
         scores.put(s, i);
