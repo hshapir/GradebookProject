@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.MenuItem;
@@ -150,7 +151,17 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("Name:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+            if(currentSection.findStudent(result.get()) != null){
+                Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
+                invalidNameAlert.setTitle("Invalid Student Name");
+                invalidNameAlert.setHeaderText(null);
+                invalidNameAlert.setContentText("You cannot have two students with the same name. Please enter an unused student name or add a '#1' or '#2'");
+                invalidNameAlert.showAndWait();
+                addStudent();
+            } else{
+                currentSection.addStudent(new Student(currentSection, result.get()));
+            }
+            updateTable();
         }
     }
     
@@ -215,7 +226,17 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("New Assignment Name:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+            if(currentSection.findAssignment(result.get()) != null){
+                Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
+                invalidNameAlert.setTitle("Invalid Assignment Name");
+                invalidNameAlert.setHeaderText(null);
+                invalidNameAlert.setContentText("You cannot have two assignments with the same name. Please enter an unused name or a date or number, like 'Test #2' or 'Homework 5/18'");
+                invalidNameAlert.showAndWait();
+                createAssignment();
+            } else{
+                currentSection.addAssignment(new Assignment(currentSection, result.get()));
+            }
+            updateTable();
         }
     }
     
@@ -229,5 +250,20 @@ public class UserInterfaceController implements Initializable {
         if (result.isPresent()){
             System.out.println("Your name: " + result.get());
         }
+    }
+    
+    /**
+     *
+     */
+    public void reset() {
+        GradebookProject.reset();
+        currentSection = GradebookProject.getCurrentSection();
+        currentSection.addStudent(new Student(currentSection, "John"));
+        currentSection.addStudent(new Student(currentSection, "Jane"));
+        currentSection.addStudent(new Student(currentSection, "David"));
+        currentSection.addAssignment(new Assignment(currentSection, "Test"));
+        currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
+        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
+        updateTable();
     }
 }

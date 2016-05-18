@@ -20,6 +20,12 @@ import javafx.stage.Stage;
 public class GradebookProject extends Application {
     private static List<ClassSection> allClasses;
     private static ClassSection currentSection;
+
+    public static void reset() {
+        allClasses = new ArrayList<ClassSection>();
+        allClasses.add(new ClassSection());
+        currentSection = allClasses.get(0);
+    }
     
     @Override
     public void start(Stage stage) throws Exception {

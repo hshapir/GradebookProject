@@ -64,6 +64,15 @@ class ClassSection implements Serializable {
         return null;
     }
     
+    public Assignment findAssignment(String s){
+        for(Assignment a : assignments){
+            if( a.toString().equals(s)){
+                return a;
+            }
+        }
+        return null;
+    }
+    
     public void removeAssignment(Assignment a){
         assignments.remove(assignments.indexOf(a));
     }
