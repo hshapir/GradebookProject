@@ -208,4 +208,19 @@ public class UserInterfaceController implements Initializable {
             System.out.println("Your name: " + result.get());
         }
     }
+    
+    /**
+     *
+     */
+    public void reset() {
+        GradebookProject.reset();
+        currentSection = GradebookProject.getCurrentSection();
+        currentSection.addStudent(new Student(currentSection, "John"));
+        currentSection.addStudent(new Student(currentSection, "Jane"));
+        currentSection.addStudent(new Student(currentSection, "David"));
+        currentSection.addAssignment(new Assignment(currentSection, "Test"));
+        currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
+        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
+        updateTable();
+    }
 }
