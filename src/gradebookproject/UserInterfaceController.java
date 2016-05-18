@@ -15,7 +15,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
@@ -256,14 +258,22 @@ public class UserInterfaceController implements Initializable {
      *
      */
     public void reset() {
-        GradebookProject.reset();
-        currentSection = GradebookProject.getCurrentSection();
-        currentSection.addStudent(new Student(currentSection, "John"));
-        currentSection.addStudent(new Student(currentSection, "Jane"));
-        currentSection.addStudent(new Student(currentSection, "David"));
-        currentSection.addAssignment(new Assignment(currentSection, "Test"));
-        currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
-        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
-        updateTable();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Look, a Confirmation Dialog");
+        alert.setContentText("Are you ok with this?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            GradebookProject.reset();
+            currentSection = GradebookProject.getCurrentSection();
+            currentSection.addStudent(new Student(currentSection, "John"));
+            currentSection.addStudent(new Student(currentSection, "Jane"));
+            currentSection.addStudent(new Student(currentSection, "David"));
+            currentSection.addAssignment(new Assignment(currentSection, "Test"));
+            currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
+            currentSection.addAssignment(new Assignment(currentSection, "Homework"));
+            updateTable();
+        }
     }
 }
