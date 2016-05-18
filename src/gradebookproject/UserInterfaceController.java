@@ -69,12 +69,7 @@ public class UserInterfaceController implements Initializable {
         /** This just creates some tester students and assignments
          * and won't be present in the actual program
         */
-        currentSection.addStudent(new Student(currentSection, "John"));
-        currentSection.addStudent(new Student(currentSection, "Jane"));
-        currentSection.addStudent(new Student(currentSection, "David"));
-        currentSection.addAssignment(new Assignment(currentSection, "Test"));
-        currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
-        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
+        
         updateTable();
     }    
     
@@ -172,8 +167,9 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("Choose Student:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
+            currentSection.removeStudent(currentSection.findStudent(result.get()));
         }
+        updateTable();
         
         /*TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Student");
@@ -186,17 +182,34 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void renameStudent(){
-        TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Rename Student");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getNames());
+        dialog.setTitle("Delete Student");
         dialog.setHeaderText("");
-        dialog.setContentText("Student's Current Name:");
-        TextField newName = new TextField();
-        newName.setPromptText("Username");
-        dialog.setContentText("Student's New Name:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+        dialog.setContentText("Choose Student:");
+        Optional<String> oldName = dialog.showAndWait();
+        if(oldName.isPresent()){
+            TextInputDialog newNameDialog = new TextInputDialog("");
+            newNameDialog.setTitle("Rename Student");
+            newNameDialog.setHeaderText("");
+            newNameDialog.setContentText("Student's Current Name:");
+            TextField newName = new TextField();
+            newName.setPromptText("Username");
+            newNameDialog.setContentText("Student's New Name:");
+            Optional<String> result = newNameDialog.showAndWait();
+            if (result.isPresent()){
+                if(currentSection.findStudent(result.get()) != null){
+                Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
+                invalidNameAlert.setTitle("Invalid Student Name");
+                invalidNameAlert.setHeaderText(null);
+                invalidNameAlert.setContentText("You cannot have two students with the same name. Please enter an unused student name or add a '#1' or '#2'");
+                invalidNameAlert.showAndWait();
+                addStudent();
+                } else{
+                currentSection.addStudent(new Student(currentSection, result.get()));
+                }
+            }
         }
+        updateTable();
     }
     
     public void deleteAssignment(){
@@ -206,9 +219,10 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("Choose Assignment:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
+            currentSection.removeAssignment(currentSection.findAssignment(result.get()));
         }
         
+        updateTable();
         /*TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Assignment");
         dialog.setHeaderText("");
@@ -255,7 +269,7 @@ public class UserInterfaceController implements Initializable {
     /**
      *
      */
-    public void reset() {
+    public void resetClass() {
         GradebookProject.reset();
         currentSection = GradebookProject.getCurrentSection();
         currentSection.addStudent(new Student(currentSection, "John"));
