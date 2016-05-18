@@ -27,6 +27,21 @@ class ClassSection implements Serializable {
          assignments = new ArrayList<Assignment>();
      }
     
+    public List getNames(){
+        List<String> names = new ArrayList<String>();
+        for(Student student: students){
+            names.add(student.getName());
+        }
+        return names;
+    }
+    
+    public List getAssignmentNames(){
+        List<String> assignmentNames = new ArrayList<String>();
+        for(Assignment assignment: assignments){
+            assignmentNames.add(assignment.getName());
+        }
+        return assignmentNames;
+    }
     
     public void addStudent(Student newStudent){
         students.add(newStudent);

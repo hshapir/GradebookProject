@@ -15,10 +15,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.MapValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -66,12 +68,12 @@ public class UserInterfaceController implements Initializable {
         /** This just creates some tester students and assignments
          * and won't be present in the actual program
         */
-        /*currentSection.addStudent(new Student(currentSection, "John"));
+        currentSection.addStudent(new Student(currentSection, "John"));
         currentSection.addStudent(new Student(currentSection, "Jane"));
         currentSection.addStudent(new Student(currentSection, "David"));
         currentSection.addAssignment(new Assignment(currentSection, "Test"));
         currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
-        currentSection.addAssignment(new Assignment(currentSection, "Homework"));*/
+        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
         updateTable();
     }    
     
@@ -153,14 +155,23 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void deleteStudent(){
-        TextInputDialog dialog = new TextInputDialog("");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getNames());
+        dialog.setTitle("Delete Student");
+        dialog.setHeaderText("");
+        dialog.setContentText("Choose Student:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your choice: " + result.get());
+        }
+        
+        /*TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Student");
         dialog.setHeaderText("");
         dialog.setContentText("Student's Name:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             System.out.println("Your name: " + result.get());
-        }
+        }*/
     }
     
     public void renameStudent(){
@@ -168,6 +179,8 @@ public class UserInterfaceController implements Initializable {
         dialog.setTitle("Rename Student");
         dialog.setHeaderText("");
         dialog.setContentText("Student's Current Name:");
+        TextField newName = new TextField();
+        newName.setPromptText("Username");
         dialog.setContentText("Student's New Name:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
@@ -176,14 +189,23 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void deleteAssignment(){
-        TextInputDialog dialog = new TextInputDialog("");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getAssignmentNames());
+        dialog.setTitle("Delete Assignment");
+        dialog.setHeaderText("");
+        dialog.setContentText("Choose Assignment:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            System.out.println("Your choice: " + result.get());
+        }
+        
+        /*TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Assignment");
         dialog.setHeaderText("");
         dialog.setContentText("Assignment Name:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             System.out.println("Your name: " + result.get());
-        }
+        }*/
     }
     
     public void createAssignment(){
