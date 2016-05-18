@@ -126,14 +126,9 @@ public class UserInterfaceController implements Initializable {
         dialog.setTitle("Add Student");
         dialog.setHeaderText("");
         dialog.setContentText("Name:");
-
-        // Traditional way to get the response value.
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
             System.out.println("Your name: " + result.get());
         }
-
-        // The Java 8 way to get the response value (with lambda expression).
-        //result.ifPresent(name -> System.out.println("Your name: " + name));
     }
 }
