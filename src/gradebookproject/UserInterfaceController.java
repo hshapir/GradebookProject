@@ -275,5 +275,6 @@ public class UserInterfaceController implements Initializable {
             currentSection.addAssignment(new Assignment(currentSection, "Homework"));
             updateTable();
         }
+        
     }
 }
