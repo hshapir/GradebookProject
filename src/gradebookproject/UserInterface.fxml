@@ -17,7 +17,7 @@
                   <items>
                     <MenuItem fx:id="closeButton" mnemonicParsing="false" onAction="#close" text="Close" />
                         <MenuItem fx:id="SaveButton" mnemonicParsing="false" onAction="#save" text="Save" />
-                        <MenuItem mnemonicParsing="false" onAction="#reset" text="Reset" />
+                        <MenuItem mnemonicParsing="false" onAction="#resetClass" text="Reset" />
                   </items>
                 </Menu>
                   <Menu mnemonicParsing="false" text="Edit">

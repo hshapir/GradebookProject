@@ -71,12 +71,7 @@ public class UserInterfaceController implements Initializable {
         /** This just creates some tester students and assignments
          * and won't be present in the actual program
         */
-        currentSection.addStudent(new Student(currentSection, "John"));
-        currentSection.addStudent(new Student(currentSection, "Jane"));
-        currentSection.addStudent(new Student(currentSection, "David"));
-        currentSection.addAssignment(new Assignment(currentSection, "Test"));
-        currentSection.addAssignment(new Assignment(currentSection, "Quiz"));
-        currentSection.addAssignment(new Assignment(currentSection, "Homework"));
+        
         updateTable();
     }    
     
@@ -174,8 +169,9 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("Choose Student:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
+            currentSection.removeStudent(currentSection.findStudent(result.get()));
         }
+        updateTable();
         
         /*TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Student");
@@ -188,17 +184,32 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void renameStudent(){
-        TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Rename Student");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getNames());
+        dialog.setTitle("Select Student");
         dialog.setHeaderText("");
-        dialog.setContentText("Student's Current Name:");
-        TextField newName = new TextField();
-        newName.setPromptText("Username");
-        dialog.setContentText("Student's New Name:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+        dialog.setContentText("Choose Student to Rename:");
+        Optional<String> oldName = dialog.showAndWait();
+        if(oldName.isPresent()){
+            TextInputDialog newNameDialog = new TextInputDialog("");
+            newNameDialog.setTitle("Rename Student");
+            newNameDialog.setHeaderText("");
+            TextField newName = new TextField();
+            newName.setPromptText("Username");
+            newNameDialog.setContentText("Student's New Name:");
+            Optional<String> result = newNameDialog.showAndWait();
+            if (result.isPresent()){
+                if(currentSection.findStudent(result.get()) != null){
+                Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
+                invalidNameAlert.setTitle("Invalid Student Name");
+                invalidNameAlert.setHeaderText(null);
+                invalidNameAlert.setContentText("You cannot have two students with the same name. Please enter an unused student name or add a '#1' or '#2'");
+                invalidNameAlert.showAndWait();
+                } else{
+                currentSection.findStudent(oldName.get()).setName(result.get());
+                }
+            }
         }
+        updateTable();
     }
     
     public void deleteAssignment(){
@@ -208,9 +219,10 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("Choose Assignment:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            System.out.println("Your choice: " + result.get());
+            currentSection.removeAssignment(currentSection.findAssignment(result.get()));
         }
         
+        updateTable();
         /*TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Delete Assignment");
         dialog.setHeaderText("");
@@ -243,25 +255,43 @@ public class UserInterfaceController implements Initializable {
     }
     
     public void changeAssignment(){
-        TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Change Assignment");
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getAssignmentNames());
+        dialog.setTitle("Select Assignment");
         dialog.setHeaderText("");
-        dialog.setContentText("Assignment Name:");
-        dialog.setContentText("New Assignment Name:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
+        dialog.setContentText("Choose Assignment to Rename:");
+        Optional<String> oldName = dialog.showAndWait();
+        if(oldName.isPresent()){
+            TextInputDialog newNameDialog = new TextInputDialog("");
+            newNameDialog.setTitle("Rename Assignment");
+            newNameDialog.setHeaderText("");
+            TextField newName = new TextField();
+            newName.setPromptText("New Name");
+            newNameDialog.setContentText("Assignment's New Name:");
+            Optional<String> result = newNameDialog.showAndWait();
+            if (result.isPresent()){
+                if(currentSection.findAssignment(result.get()) != null){
+                Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
+                invalidNameAlert.setTitle("Invalid Assignment Name");
+                invalidNameAlert.setHeaderText(null);
+                invalidNameAlert.setContentText("You cannot have two assignments with the same name. Please enter an unused name or a date or number, like 'Test #2' or 'Homework 5/18'");
+                invalidNameAlert.showAndWait();
+                } else{
+                currentSection.findAssignment(oldName.get()).setName(result.get());
+                }
+            }
         }
+        updateTable();
     }
     
     /**
      *
      */
-    public void reset() {
+
+    public void resetClass() {
         Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Look, a Confirmation Dialog");
-        alert.setContentText("Are you ok with this?");
+        alert.setTitle("Are You Sure?");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to reset your gradebook? All past students, grades, and assignments will be lost forever");
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
