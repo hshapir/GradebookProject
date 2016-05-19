@@ -302,5 +302,6 @@ public class UserInterfaceController implements Initializable {
             updateTable();
         }
 
+        
     }
 }
