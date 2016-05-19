@@ -120,13 +120,9 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
         averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
         gradebook.getColumns().addAll(averageScores);
-        updateMenu();
-        
     }
     
-    public void updateMenu(){
-        //Give submenus for deleting and modifying assignments and deleting students
-    }
+    
         
     public void close() {
         Platform.exit();
