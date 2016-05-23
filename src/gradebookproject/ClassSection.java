@@ -21,10 +21,12 @@ import javafx.collections.transformation.SortedList;
 class ClassSection implements Serializable {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
+     private double[] gradeRanges; 
      
      public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
+         gradeRanges = new double[12];
      }
     
     public List getNames(){
