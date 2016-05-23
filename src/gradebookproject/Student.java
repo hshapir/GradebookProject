@@ -15,14 +15,14 @@ import java.util.*;
 public class Student implements Comparable<Student>, Serializable{
     private String name;
     private ClassSection enrolledClass;
-    private List<Integer> scores = new ArrayList<Integer>();
+    private List<Grade> scores = new ArrayList<Grade>();
     private Double average;
     
     public Student(ClassSection c, String n) {
         name = n;
         enrolledClass = c;
         for(Assignment a : enrolledClass.getAssignments()){
-            scores.add(new Integer(0));
+            scores.add(new Grade(0.0, enrolledClass));
         }
         updateAverage();
     }

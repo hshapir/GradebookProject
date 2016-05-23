@@ -15,20 +15,20 @@ import java.util.*;
 public class Assignment implements Comparable<Assignment>, Serializable{
     private ClassSection section;
     private String name;
-    private Map<Student, Double> scores;
+    private Map<Student, Grade> scores;
     
     
     public Assignment(ClassSection c, String n){
         section = c;
         name = n;
-        scores = new TreeMap<Student, Double>();
+        scores = new TreeMap<Student, Grade>();
         updateStudentMap();
     }
     
     public void updateStudentMap(){
         for(Student s : section.getStudentList()){
             if(!scores.keySet().contains(s)){
-                scores.put(s, 100.);
+                scores.put(s, new Grade(100.0, section));
             }
             
         }
@@ -42,9 +42,9 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         name = s;
     }
     
-    public void setGrade(Student s, Double i){
+    public void setGrade(Student s, String newValue){
         scores.remove(s);
-        scores.put(s, i);
+        scores.put(s, new Grade(newValue, section));
     }
     
     public String getGrade(Student s){

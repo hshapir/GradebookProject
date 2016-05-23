@@ -37,6 +37,10 @@ class ClassSection implements Serializable {
         return names;
     }
     
+    public double[] getGradeRanges(){
+        return gradeRanges;
+    }
+    
     public List getAssignmentNames(){
         List<String> assignmentNames = new ArrayList<String>();
         for(Assignment assignment: assignments){
