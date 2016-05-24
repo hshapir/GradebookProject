@@ -249,9 +249,24 @@ public class UserInterfaceController implements Initializable {
                 createAssignment();
             } else{
                 currentSection.addAssignment(new Assignment(currentSection, result.get()));
+                currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
             }
             updateTable();
         }
+    }
+    
+    public String assignmentDateDialog(){
+        TextInputDialog newDateDialog = new TextInputDialog("");
+        newDateDialog.setTitle("New Assignment Due Date");
+        newDateDialog.setHeaderText(null);
+        TextField newDate = new TextField();
+        newDate.setPromptText("New Name");
+        newDateDialog.setContentText("Assignment's New Due Date in the format MM/DD/YYYY only:");
+        Optional<String> result = newDateDialog.showAndWait();
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
     }
     
     public void changeAssignment(){
@@ -277,6 +292,7 @@ public class UserInterfaceController implements Initializable {
                 invalidNameAlert.showAndWait();
                 } else{
                 currentSection.findAssignment(oldName.get()).setName(result.get());
+                currentSection.findAssignment(oldName.get()).setDueDate(this.assignmentDateDialog());
                 }
             }
         }

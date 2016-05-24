@@ -24,6 +24,8 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         name = n;
         scores = new TreeMap<Student, Grade>();
         updateStudentMap();
+        assignmentType = null;
+        dueDate = null;
     }
     
     public void updateStudentMap(){
@@ -77,6 +79,29 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     
     public void setDate(int year, int month, int day){
         dueDate = new Date(year, month, day);
+    }
+    
+    public void setDueDate(String s){
+        if(s == null){
+            return;
+        }
+        Integer month = null;
+        try{
+            month = Integer.parseInt(s.substring(0, s.indexOf("/")));
+            s=s.substring(s.indexOf("/"));
+        } catch(Exception e){}
+        Integer day = null;
+        try{
+            day = Integer.parseInt(s.substring(0, s.indexOf("/")));
+            s=s.substring(s.indexOf("/"));
+        } catch(Exception e){}
+        Integer year = null;
+        try{
+            year = Integer.parseInt(s.substring(0, s.indexOf("/")));
+        } catch(Exception e){}
+        if(month != null && day != null && year != null){
+            setDate(year, month, day);
+        }
     }
     
     public Date getDueDate(){
