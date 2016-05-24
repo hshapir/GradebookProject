@@ -26,7 +26,7 @@ class ClassSection implements Serializable {
      public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
-         gradeRanges = new double[12];
+         gradeRanges = new double[] {99.0, 94.0, 90.0, 88.0, 83.0, 80.0, 78.0, 73.0, 70.0, 68.0, 63.0, 60.0};
      }
     
     public List getNames(){
@@ -105,13 +105,14 @@ class ClassSection implements Serializable {
             Map<String, String> dataRow = new HashMap<>();
             dataRow.put("Students", s.toString());
             for(Assignment a : assignments){
-                dataRow.put(a.toString(), a.getGrade(s));
+                dataRow.put(a.toString(), a.getGrade(s).toString());
             }
             if(s.getAverage().toString().length() < 5){
                 dataRow.put("Average Score", s.getAverage().toString());
             } else{
             dataRow.put("Average Score", s.getAverage().toString().substring(0, 5));
             }
+            dataRow.put("Letter Grade", Grade.getLetterGrade(this, s.getAverage()));
             allData.add(dataRow);
         }
         return allData;

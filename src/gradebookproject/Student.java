@@ -32,7 +32,7 @@ public class Student implements Comparable<Student>, Serializable{
         double numGrades = 0;
         for(Assignment a : enrolledClass.getAssignments()){
             if(a.getGrade(this) != null){
-                sum += Double.parseDouble(a.getGrade(this));
+                sum += a.getGrade(this).getNumericalValue();
                 numGrades++;
             }
         }

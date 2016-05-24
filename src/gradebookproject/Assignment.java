@@ -16,7 +16,8 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     private ClassSection section;
     private String name;
     private Map<Student, Grade> scores;
-    
+    private Date dueDate;
+    private String assignmentType;
     
     public Assignment(ClassSection c, String n){
         section = c;
@@ -47,16 +48,23 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         scores.put(s, new Grade(newValue, section));
     }
     
-    public String getGrade(Student s){
+    public Grade getGrade(Student s){
         updateStudentMap();
         if(scores.containsKey(s)){
-            return scores.get(s).toString();
+            return scores.get(s);
         }
         return null;
     }
     
     @Override
     public String toString(){
+        if(assignmentType != null && dueDate != null){
+            return name + " (" + assignmentType + " Due on: " + dueDate.toString() +")";
+        } else if(assignmentType != null){
+            return name + " (" + assignmentType + ")";
+        } else if(dueDate !=null){
+            return name + " (Due on: " + dueDate.toString() +")";
+        }
         return name;
     }
     
@@ -65,6 +73,22 @@ public class Assignment implements Comparable<Assignment>, Serializable{
             return 0;
         }
         return 1;
+    }
+    
+    public void setDate(int year, int month, int day){
+        dueDate = new Date(year, month, day);
+    }
+    
+    public Date getDueDate(){
+        return dueDate;
+    }
+    
+    public void setAssignmentType(String s){
+        assignmentType = s;
+    }
+    
+    public String getAssignmentType(){
+        return assignmentType;
     }
     
 }

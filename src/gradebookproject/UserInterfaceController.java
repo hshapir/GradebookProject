@@ -120,6 +120,10 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
         averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
         gradebook.getColumns().addAll(averageScores);
+        
+        TableColumn<Map, String> finalLetterGrades = new TableColumn<>("Letter Grade");
+        finalLetterGrades.setCellValueFactory(new MapValueFactory("Letter Grade"));
+        gradebook.getColumns().addAll(finalLetterGrades);
     }
     
     
