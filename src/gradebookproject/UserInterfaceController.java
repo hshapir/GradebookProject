@@ -292,7 +292,7 @@ public class UserInterfaceController implements Initializable {
                 invalidNameAlert.showAndWait();
                 } else{
                 currentSection.findAssignment(oldName.get()).setName(result.get());
-                currentSection.findAssignment(oldName.get()).setDueDate(this.assignmentDateDialog());
+                currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
                 }
             }
         }

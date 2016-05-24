@@ -61,13 +61,19 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     @Override
     public String toString(){
         if(assignmentType != null && dueDate != null){
-            return name + " (" + assignmentType + " Due on: " + dueDate.toString() +")";
+            return name + " (" + assignmentType + " Due on: " + dateString() + ")";
         } else if(assignmentType != null){
             return name + " (" + assignmentType + ")";
         } else if(dueDate !=null){
-            return name + " (Due on: " + dueDate.toString() +")";
+            return name + " (Due on: " + dateString() + ")";
         }
         return name;
+    }
+    
+    public String dateString(){
+        String ret = dueDate.toString();
+        ret = ret.replace("00:00:00 CST ", "");
+        return ret;
     }
     
     public int compareTo(Assignment a){
@@ -88,19 +94,19 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         Integer month = null;
         try{
             month = Integer.parseInt(s.substring(0, s.indexOf("/")));
-            s=s.substring(s.indexOf("/"));
+            s=s.substring(s.indexOf("/") + 1);
         } catch(Exception e){}
         Integer day = null;
         try{
             day = Integer.parseInt(s.substring(0, s.indexOf("/")));
-            s=s.substring(s.indexOf("/"));
+            s=s.substring(s.indexOf("/") + 1);
         } catch(Exception e){}
         Integer year = null;
         try{
-            year = Integer.parseInt(s.substring(0, s.indexOf("/")));
+            year = Integer.parseInt(s);
         } catch(Exception e){}
         if(month != null && day != null && year != null){
-            setDate(year, month, day);
+            setDate(year - 1900, month - 1, day);
         }
     }
     
