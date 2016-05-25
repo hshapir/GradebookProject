@@ -41,9 +41,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextArea layoutY="29.0" prefHeight="371.0" prefWidth="505.0" text="Welcome to Dheven's Gradebook! To access your preferred section, please click on the dropdown menu above!" wrapText="true">
+      <TextArea layoutY="29.0" prefHeight="371.0" prefWidth="505.0" text="Welcome to Dheven's Gradebook! To access your preferred section, please click on the dropdown menu above and to the right!" wrapText="true">
          <font>
-            <Font name="Lucida Console" size="40.0" />
+            <Font name="Lucida Console" size="39.0" />
          </font>
       </TextArea>
    </children>
