@@ -77,7 +77,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     }
     
     public int compareTo(Assignment a){
-        if(name.equals(a.toString())){
+        if(name.equals(a.getName())){
             return 0;
         }
         return 1;

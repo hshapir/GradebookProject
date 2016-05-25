@@ -250,6 +250,7 @@ public class UserInterfaceController implements Initializable {
             } else{
                 currentSection.addAssignment(new Assignment(currentSection, result.get()));
                 currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
+                currentSection.findAssignment(result.get()).setAssignmentType(this.assignmentTypeDialog());
             }
             updateTable();
         }
@@ -263,6 +264,20 @@ public class UserInterfaceController implements Initializable {
         newDate.setPromptText("New Name");
         newDateDialog.setContentText("Assignment's New Due Date in the format MM/DD/YYYY only:");
         Optional<String> result = newDateDialog.showAndWait();
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
+    }
+    
+    public String assignmentTypeDialog(){
+        TextInputDialog newTypeDialog = new TextInputDialog("");
+        newTypeDialog.setTitle("New Assignment Type");
+        newTypeDialog.setHeaderText(null);
+        TextField newType = new TextField();
+        newType.setPromptText("Assignment Type");
+        newTypeDialog.setContentText("Type of assignment, like 'Test,' 'Quiz,' etc.");
+        Optional<String> result = newTypeDialog.showAndWait();
         if(result.isPresent()){
             return result.get();
         }
@@ -291,8 +306,10 @@ public class UserInterfaceController implements Initializable {
                 invalidNameAlert.setContentText("You cannot have two assignments with the same name. Please enter an unused name or a date or number, like 'Test #2' or 'Homework 5/18'");
                 invalidNameAlert.showAndWait();
                 } else{
-                currentSection.findAssignment(oldName.get()).setName(result.get());
-                currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
+                    String newNameString = result.get();
+                    currentSection.findAssignment(oldName.get()).setName(newNameString);
+                    currentSection.findAssignment(newNameString).setDueDate(this.assignmentDateDialog());
+                    currentSection.findAssignment(newNameString).setAssignmentType(this.assignmentTypeDialog());
                 }
             }
         }

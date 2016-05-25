@@ -72,7 +72,7 @@ class ClassSection implements Serializable {
     
     public Assignment findAssignment(String s){
         for(Assignment a : assignments){
-            if( a.toString().equals(s)){
+            if( a.getName().equals(s)){
                 return a;
             }
         }
