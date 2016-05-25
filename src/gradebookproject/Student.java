@@ -33,7 +33,9 @@ public class Student implements Comparable<Student>, Serializable{
         for(Assignment a : enrolledClass.getAssignments()){
             if(a.getGrade(this) != null){
                 sum += a.getGrade(this).getNumericalValue();
-                numGrades++;
+                if(!a.getGrade(this).excused()){
+                    numGrades++;
+                }
             }
         }
         if(numGrades > 0){

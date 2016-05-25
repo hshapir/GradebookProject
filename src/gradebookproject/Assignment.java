@@ -41,6 +41,19 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         return name;
     }
     
+    public Double getAverageScore(){
+        updateStudentMap();
+        Double sum = 0.0;
+        Double numScores = 0.0;
+        for(Student s : scores.keySet()){
+            sum += getGrade(s).getNumericalValue();
+            if(!getGrade(s).excused()){
+                numScores++;
+            }
+        }
+        return sum / numScores;
+    }
+    
     public void setName(String s){
         name = s;
     }

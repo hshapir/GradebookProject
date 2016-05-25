@@ -115,6 +115,17 @@ class ClassSection implements Serializable {
             dataRow.put("Letter Grade", Grade.getLetterGrade(this, s.getAverage()));
             allData.add(dataRow);
         }
+        Map<String, String> averageScoresRow = new HashMap<>();
+        for(Assignment a : assignments){
+            averageScoresRow.put("Students", "Class Average");
+            if(a.getAverageScore().toString().length() < 5){
+                averageScoresRow.put(a.toString(), a.getAverageScore().toString());
+            } else{
+                averageScoresRow.put(a.toString(), a.getAverageScore().toString().substring(0,5));
+            }
+            
+        }
+        allData.add(averageScoresRow);
         return allData;
     }
     

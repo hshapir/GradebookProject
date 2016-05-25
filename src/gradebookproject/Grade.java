@@ -61,6 +61,10 @@ class Grade implements Serializable {
                     value = 100.0;
                 } else if(inputValue.equals("Fail")){
                     value = 0.0;
+                } else if(inputValue.equals("Excused")){
+                    value = 0.0;
+                } else if(inputValue.equals("excused")){
+                    value = 0.0;
                 }
                 
             }
@@ -104,6 +108,13 @@ class Grade implements Serializable {
     
     public Double getNumericalValue(){
         return value;
+    }
+    
+    public boolean excused(){
+        if(stringValue.equals("Excused") || stringValue.equals("excused")){
+            return true;
+        }
+        return false;
     }
     
     
