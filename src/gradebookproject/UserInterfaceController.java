@@ -127,8 +127,8 @@ public class UserInterfaceController implements Initializable {
         
         for(String s : currentSection.getAssignmentTypes()){
             if(s != null){
-                TableColumn<Map, String> newColumn = new TableColumn<>(s + " Average");
-                newColumn.setCellValueFactory(new MapValueFactory(s));
+                TableColumn<Map, String> newColumn = new TableColumn<>(s + " Category Average");
+                newColumn.setCellValueFactory(new MapValueFactory(s + " Average"));
                 gradebook.getColumns().addAll(newColumn);
             }
         }
@@ -318,6 +318,7 @@ public class UserInterfaceController implements Initializable {
                     currentSection.findAssignment(oldName.get()).setName(newNameString);
                     currentSection.findAssignment(newNameString).setDueDate(this.assignmentDateDialog());
                     currentSection.findAssignment(newNameString).setAssignmentType(this.assignmentTypeDialog());
+                    currentSection.updateAssignmentTypes();
                 }
             }
         }

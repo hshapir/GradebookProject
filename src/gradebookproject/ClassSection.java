@@ -35,7 +35,7 @@ class ClassSection implements Serializable {
              assignmentTypes = new ArrayList<String>();
          }
          for(Assignment a : assignments){
-             if(!assignmentTypes.contains(a.getAssignmentType())){
+             if(!assignmentTypes.contains(a.getAssignmentType()) && a.getAssignmentType() != null){
                  assignmentTypes.add(a.getAssignmentType());
              }
          }
@@ -134,9 +134,9 @@ class ClassSection implements Serializable {
             for(Double d : s.getAssignmentTypeAverages()){
                 if(d != null){
                     if(d.toString().length() < 5){
-                        dataRow.put(this.getAssignmentTypes().get(i), d.toString());
+                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", d.toString());
                     } else{
-                        dataRow.put(this.getAssignmentTypes().get(i), d.toString().substring(0, 5));
+                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", d.toString().substring(0, 5));
                         i++;
                     }
                 }
