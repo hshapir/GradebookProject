@@ -124,6 +124,14 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> finalLetterGrades = new TableColumn<>("Letter Grade");
         finalLetterGrades.setCellValueFactory(new MapValueFactory("Letter Grade"));
         gradebook.getColumns().addAll(finalLetterGrades);
+        
+        for(String s : currentSection.getAssignmentTypes()){
+            if(s != null){
+                TableColumn<Map, String> newColumn = new TableColumn<>(s + " Average");
+                newColumn.setCellValueFactory(new MapValueFactory(s));
+                gradebook.getColumns().addAll(newColumn);
+            }
+        }
     }
     
     

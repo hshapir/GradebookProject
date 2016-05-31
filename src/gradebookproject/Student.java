@@ -69,4 +69,34 @@ public class Student implements Comparable<Student>, Serializable{
         return 1;
     }
     
+    public Double[] getAssignmentTypeAverages(){
+        enrolledClass.updateAssignmentTypes();
+        Double[] ret = new Double[enrolledClass.getAssignmentTypes().size()];
+        int i = 0;
+        for(String s : enrolledClass.getAssignmentTypes()){
+            if(s != null){
+                double typeSum = 0;
+                double numOfType = 0;
+                for(Assignment a : enrolledClass.getAssignments()){
+                    if(a.getAssignmentType() != null){
+                        if(a.getAssignmentType().equals(s)){
+                            typeSum += a.getGrade(this).getNumericalValue();
+                            if(!a.getGrade(this).excused()){
+                                numOfType++;
+                            }
+                        }
+                    }
+                }
+                if(numOfType != 0){
+                    ret[i] = typeSum / numOfType;
+                    i++;
+                } else{
+                    ret[i] = 0.0;
+                    i++;
+                }
+            }
+        }
+        return ret;
+    }
+    
 }

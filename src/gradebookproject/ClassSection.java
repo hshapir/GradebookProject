@@ -22,11 +22,28 @@ class ClassSection implements Serializable {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
      private double[] gradeRanges; 
+     private List<String> assignmentTypes;
      
      public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
          gradeRanges = new double[] {99.0, 94.0, 90.0, 88.0, 83.0, 80.0, 78.0, 73.0, 70.0, 68.0, 63.0, 60.0};
+     }
+     
+     public void updateAssignmentTypes(){
+         if(assignmentTypes == null){
+             assignmentTypes = new ArrayList<String>();
+         }
+         for(Assignment a : assignments){
+             if(!assignmentTypes.contains(a.getAssignmentType())){
+                 assignmentTypes.add(a.getAssignmentType());
+             }
+         }
+     }
+     
+     public List<String> getAssignmentTypes(){
+         updateAssignmentTypes();
+         return assignmentTypes;
      }
     
     public List getNames(){
@@ -113,6 +130,17 @@ class ClassSection implements Serializable {
             dataRow.put("Average Score", s.getAverage().toString().substring(0, 5));
             }
             dataRow.put("Letter Grade", Grade.getLetterGrade(this, s.getAverage()));
+            int i = 0;
+            for(Double d : s.getAssignmentTypeAverages()){
+                if(d != null){
+                    if(d.toString().length() < 5){
+                        dataRow.put(this.getAssignmentTypes().get(i), d.toString());
+                    } else{
+                        dataRow.put(this.getAssignmentTypes().get(i), d.toString().substring(0, 5));
+                        i++;
+                    }
+                }
+            }
             allData.add(dataRow);
         }
         Map<String, String> averageScoresRow = new HashMap<>();

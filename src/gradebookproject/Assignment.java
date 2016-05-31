@@ -129,6 +129,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     
     public void setAssignmentType(String s){
         assignmentType = s;
+        section.updateAssignmentTypes();
     }
     
     public String getAssignmentType(){
