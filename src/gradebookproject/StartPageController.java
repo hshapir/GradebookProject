@@ -121,4 +121,7 @@ public class StartPageController implements Initializable {
         updateList();
     }
     
+    public void close() {
+        System.exit(0);
+    }
 }
