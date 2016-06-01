@@ -247,7 +247,7 @@ public class UserInterfaceController implements Initializable {
         dialog.setHeaderText("");
         dialog.setContentText("New Assignment Name:");
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
+        if (result.isPresent() && !result.equals("")){
             if(currentSection.findAssignment(result.get()) != null){
                 Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
                 invalidNameAlert.setTitle("Invalid Assignment Name");
@@ -258,7 +258,11 @@ public class UserInterfaceController implements Initializable {
             } else{
                 currentSection.addAssignment(new Assignment(currentSection, result.get()));
                 currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
-                currentSection.findAssignment(result.get()).setAssignmentType(this.assignmentTypeDialog());
+                String newType = this.assignmentTypeDialog();
+                if(!newType.equals("") || newType == null){
+                    currentSection.findAssignment(result.get()).setAssignmentType(this.assignmentTypeDialog());
+                }
+                currentSection.updateAssignmentTypes();
                 currentSection.findAssignment(result.get()).setPointValue(this.assignmentPointValueDialog());
             }
             updateTable();
