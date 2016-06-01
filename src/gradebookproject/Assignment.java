@@ -82,7 +82,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     
     public void setGrade(Student s, String newValue){
         scores.remove(s);
-        scores.put(s, new Grade(newValue, section));
+        scores.put(s, new Grade(newValue, section, this));
     }
     
     public Grade getGrade(Student s){

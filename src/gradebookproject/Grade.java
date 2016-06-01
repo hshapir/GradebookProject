@@ -24,11 +24,12 @@ class Grade implements Serializable {
         assignment = a;
     }
     
-    public Grade(String inputValue, ClassSection csec){
+    public Grade(String inputValue, ClassSection csec, Assignment a){
+        assignment = a;
         stringValue = inputValue;
         section = csec;
         try{
-            this.value = 0.0+ Integer.parseInt(inputValue);
+            this.value = 0.0 + Integer.parseInt(inputValue);
         } catch(Exception e){
             try{
                 value = Double.parseDouble(inputValue);
@@ -67,8 +68,11 @@ class Grade implements Serializable {
                     value = 0.0;
                 } else if(inputValue.equals("excused")){
                     value = 0.0;
+                } else {
+                    return;
                 }
-                value = value * assignment.getPointValue() / 100.0;
+                    value *= assignment.getPointValue() / 100.0;
+                
             }
         } 
         
