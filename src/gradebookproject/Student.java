@@ -69,13 +69,13 @@ public class Student implements Comparable<Student>, Serializable{
         return 1;
     }
     
-    public Double[] getAssignmentTypeAverages(){
+    public String[] getAssignmentTypeAverages(){
         enrolledClass.updateAssignmentTypes();
-        Double[] ret = new Double[enrolledClass.getAssignmentTypes().size()];
+        String[] ret = new String[enrolledClass.getAssignmentTypes().size()];
         int i = 0;
         for(String s : enrolledClass.getAssignmentTypes()){
             if(s != null){
-                double typeSum = 0;
+                Double typeSum = 0.0;
                 double typePointsAvailable = 0;
                 for(Assignment a : enrolledClass.getAssignments()){
                     if(a.getAssignmentType() != null){
@@ -88,11 +88,17 @@ public class Student implements Comparable<Student>, Serializable{
                     }
                 }
                 if(typePointsAvailable != 0){
-                    ret[i] = typeSum / typePointsAvailable * 100.0;
+                    Double retDoub = typeSum / typePointsAvailable * 100.0;
+                    ret[i] = retDoub.toString();
                     i++;
                 } else{
-                    ret[i] = null;
-                    i++;
+                    if(typeSum > 0){
+                        ret[i] = "+" + typeSum.toString();
+                        i++;
+                    } else{
+                        ret[i] = null;
+                        i++;
+                    }
                 }
             }
         }

@@ -131,12 +131,12 @@ class ClassSection implements Serializable {
             }
             dataRow.put("Letter Grade", Grade.getLetterGrade(this, s.getAverage()));
             int i = 0;
-            for(Double d : s.getAssignmentTypeAverages()){
-                if(d != null){
-                    if(d.toString().length() < 5){
-                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", d.toString());
+            for(String typeAv : s.getAssignmentTypeAverages()){
+                if(typeAv != null){
+                    if(typeAv.length() < 5){
+                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", typeAv);
                     } else{
-                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", d.toString().substring(0, 5));
+                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", typeAv.substring(0, 5));
                         i++;
                     }
                 }
