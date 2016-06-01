@@ -91,7 +91,7 @@ public class Student implements Comparable<Student>, Serializable{
                     ret[i] = typeSum / numOfType;
                     i++;
                 } else{
-                    ret[i] = 0.0;
+                    ret[i] = null;
                     i++;
                 }
             }
