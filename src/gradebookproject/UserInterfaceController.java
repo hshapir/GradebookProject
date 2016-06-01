@@ -107,7 +107,7 @@ public class UserInterfaceController implements Initializable {
                     public void handle(CellEditEvent<Map, String> t) {
                         String studentName = t.getTableView().getItems().get(t.getTablePosition().getRow()).get("Students").toString();
                         Student modifiedGradeStudent = currentSection.findStudent(studentName);
-                        a.setGrade(modifiedGradeStudent, Double.parseDouble(t.getNewValue()));
+                        a.setGrade(modifiedGradeStudent, t.getNewValue());
                         modifiedGradeStudent.updateAverage();
                         updateTable();
                     }
@@ -120,6 +120,18 @@ public class UserInterfaceController implements Initializable {
         TableColumn<Map, String> averageScores = new TableColumn<>("Average Score");
         averageScores.setCellValueFactory(new MapValueFactory("Average Score"));
         gradebook.getColumns().addAll(averageScores);
+        
+        TableColumn<Map, String> finalLetterGrades = new TableColumn<>("Letter Grade");
+        finalLetterGrades.setCellValueFactory(new MapValueFactory("Letter Grade"));
+        gradebook.getColumns().addAll(finalLetterGrades);
+        
+        for(String s : currentSection.getAssignmentTypes()){
+            if(s != null){
+                TableColumn<Map, String> newColumn = new TableColumn<>(s + " Category Average");
+                newColumn.setCellValueFactory(new MapValueFactory(s + " Average"));
+                gradebook.getColumns().addAll(newColumn);
+            }
+        }
     }
     
     
@@ -245,9 +257,39 @@ public class UserInterfaceController implements Initializable {
                 createAssignment();
             } else{
                 currentSection.addAssignment(new Assignment(currentSection, result.get()));
+                currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
+                currentSection.findAssignment(result.get()).setAssignmentType(this.assignmentTypeDialog());
             }
             updateTable();
         }
+    }
+    
+    public String assignmentDateDialog(){
+        TextInputDialog newDateDialog = new TextInputDialog("");
+        newDateDialog.setTitle("New Assignment Due Date");
+        newDateDialog.setHeaderText(null);
+        TextField newDate = new TextField();
+        newDate.setPromptText("New Name");
+        newDateDialog.setContentText("Assignment's New Due Date in the format MM/DD/YYYY only:");
+        Optional<String> result = newDateDialog.showAndWait();
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
+    }
+    
+    public String assignmentTypeDialog(){
+        TextInputDialog newTypeDialog = new TextInputDialog("");
+        newTypeDialog.setTitle("New Assignment Type");
+        newTypeDialog.setHeaderText(null);
+        TextField newType = new TextField();
+        newType.setPromptText("Assignment Type");
+        newTypeDialog.setContentText("Type of assignment, like 'Test,' 'Quiz,' etc.");
+        Optional<String> result = newTypeDialog.showAndWait();
+        if(result.isPresent()){
+            return result.get();
+        }
+        return null;
     }
     
     public void changeAssignment(){
@@ -272,7 +314,11 @@ public class UserInterfaceController implements Initializable {
                 invalidNameAlert.setContentText("You cannot have two assignments with the same name. Please enter an unused name or a date or number, like 'Test #2' or 'Homework 5/18'");
                 invalidNameAlert.showAndWait();
                 } else{
-                currentSection.findAssignment(oldName.get()).setName(result.get());
+                    String newNameString = result.get();
+                    currentSection.findAssignment(oldName.get()).setName(newNameString);
+                    currentSection.findAssignment(newNameString).setDueDate(this.assignmentDateDialog());
+                    currentSection.findAssignment(newNameString).setAssignmentType(this.assignmentTypeDialog());
+                    currentSection.updateAssignmentTypes();
                 }
             }
         }

@@ -22,11 +22,28 @@ class ClassSection implements Serializable {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
      private double[] gradeRanges; 
+     private List<String> assignmentTypes;
      
      public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
-         gradeRanges = new double[12];
+         gradeRanges = new double[] {99.0, 94.0, 90.0, 88.0, 83.0, 80.0, 78.0, 73.0, 70.0, 68.0, 63.0, 60.0};
+     }
+     
+     public void updateAssignmentTypes(){
+         if(assignmentTypes == null){
+             assignmentTypes = new ArrayList<String>();
+         }
+         for(Assignment a : assignments){
+             if(!assignmentTypes.contains(a.getAssignmentType()) && a.getAssignmentType() != null){
+                 assignmentTypes.add(a.getAssignmentType());
+             }
+         }
+     }
+     
+     public List<String> getAssignmentTypes(){
+         updateAssignmentTypes();
+         return assignmentTypes;
      }
     
     public List getNames(){
@@ -35,6 +52,10 @@ class ClassSection implements Serializable {
             names.add(student.getName());
         }
         return names;
+    }
+    
+    public double[] getGradeRanges(){
+        return gradeRanges;
     }
     
     public List getAssignmentNames(){
@@ -68,7 +89,7 @@ class ClassSection implements Serializable {
     
     public Assignment findAssignment(String s){
         for(Assignment a : assignments){
-            if( a.toString().equals(s)){
+            if( a.getName().equals(s)){
                 return a;
             }
         }
@@ -101,15 +122,38 @@ class ClassSection implements Serializable {
             Map<String, String> dataRow = new HashMap<>();
             dataRow.put("Students", s.toString());
             for(Assignment a : assignments){
-                dataRow.put(a.toString(), a.getGrade(s));
+                dataRow.put(a.toString(), a.getGrade(s).toString());
             }
             if(s.getAverage().toString().length() < 5){
                 dataRow.put("Average Score", s.getAverage().toString());
             } else{
             dataRow.put("Average Score", s.getAverage().toString().substring(0, 5));
             }
+            dataRow.put("Letter Grade", Grade.getLetterGrade(this, s.getAverage()));
+            int i = 0;
+            for(Double d : s.getAssignmentTypeAverages()){
+                if(d != null){
+                    if(d.toString().length() < 5){
+                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", d.toString());
+                    } else{
+                        dataRow.put(this.getAssignmentTypes().get(i) + " Average", d.toString().substring(0, 5));
+                        i++;
+                    }
+                }
+            }
             allData.add(dataRow);
         }
+        Map<String, String> averageScoresRow = new HashMap<>();
+        for(Assignment a : assignments){
+            averageScoresRow.put("Students", "Class Average");
+            if(a.getAverageScore().toString().length() < 5){
+                averageScoresRow.put(a.toString(), a.getAverageScore().toString());
+            } else{
+                averageScoresRow.put(a.toString(), a.getAverageScore().toString().substring(0,5));
+            }
+            
+        }
+        allData.add(averageScoresRow);
         return allData;
     }
     

@@ -15,14 +15,14 @@ import java.util.*;
 public class Student implements Comparable<Student>, Serializable{
     private String name;
     private ClassSection enrolledClass;
-    private List<Integer> scores = new ArrayList<Integer>();
+    private List<Grade> scores = new ArrayList<Grade>();
     private Double average;
     
     public Student(ClassSection c, String n) {
         name = n;
         enrolledClass = c;
         for(Assignment a : enrolledClass.getAssignments()){
-            scores.add(new Integer(0));
+            scores.add(new Grade(0.0, enrolledClass));
         }
         updateAverage();
     }
@@ -32,8 +32,10 @@ public class Student implements Comparable<Student>, Serializable{
         double numGrades = 0;
         for(Assignment a : enrolledClass.getAssignments()){
             if(a.getGrade(this) != null){
-                sum += Double.parseDouble(a.getGrade(this));
-                numGrades++;
+                sum += a.getGrade(this).getNumericalValue();
+                if(!a.getGrade(this).excused()){
+                    numGrades++;
+                }
             }
         }
         if(numGrades > 0){
@@ -65,6 +67,36 @@ public class Student implements Comparable<Student>, Serializable{
             return 0;
         }
         return 1;
+    }
+    
+    public Double[] getAssignmentTypeAverages(){
+        enrolledClass.updateAssignmentTypes();
+        Double[] ret = new Double[enrolledClass.getAssignmentTypes().size()];
+        int i = 0;
+        for(String s : enrolledClass.getAssignmentTypes()){
+            if(s != null){
+                double typeSum = 0;
+                double numOfType = 0;
+                for(Assignment a : enrolledClass.getAssignments()){
+                    if(a.getAssignmentType() != null){
+                        if(a.getAssignmentType().equals(s)){
+                            typeSum += a.getGrade(this).getNumericalValue();
+                            if(!a.getGrade(this).excused()){
+                                numOfType++;
+                            }
+                        }
+                    }
+                }
+                if(numOfType != 0){
+                    ret[i] = typeSum / numOfType;
+                    i++;
+                } else{
+                    ret[i] = 0.0;
+                    i++;
+                }
+            }
+        }
+        return ret;
     }
     
 }
