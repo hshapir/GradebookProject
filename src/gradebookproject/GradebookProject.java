@@ -20,11 +20,40 @@ import javafx.stage.Stage;
 public class GradebookProject extends Application {
     private static List<ClassSection> allClasses;
     private static ClassSection currentSection;
+    
+    public GradebookProject(){
+        reset();
+    }
 
     public static void reset() {
         allClasses = new ArrayList<ClassSection>();
-        allClasses.add(new ClassSection());
+        allClasses.add(new ClassSection("New Class"));
         currentSection = allClasses.get(0);
+    }
+    
+    public static List returnAllClasses(){
+        return allClasses;
+    }
+    
+    public static void addClass(ClassSection newClass){
+        allClasses.add(newClass);
+    }
+    
+    public static List<String> getNames(){
+        List<String> names = new ArrayList<String>();
+        for(ClassSection className: allClasses){
+            names.add(className.getName());
+        }
+        return names;
+    }
+    
+    public static ClassSection findClass(String name){
+        for(int i = 0; i<allClasses.size();i++){
+            if(allClasses.get(i).getName().equals(name)){
+                return allClasses.get(i);
+            }
+        }
+        return null;
     }
     
     @Override
@@ -34,10 +63,10 @@ public class GradebookProject extends Application {
             currentSection = allClasses.get(0);
         } else{
             GradebookProject.allClasses = new ArrayList<ClassSection>();
-            allClasses.add(new ClassSection());
+            allClasses.add(new ClassSection("New Class"));
             currentSection = allClasses.get(0);
         }
-        Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
         
         Scene scene = new Scene(root);
         

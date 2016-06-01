@@ -22,13 +22,29 @@ class ClassSection implements Serializable {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
      private double[] gradeRanges; 
+     private String name;
      
-     public ClassSection(){
+     /*public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
          gradeRanges = new double[12];
+     }*/
+     
+     public ClassSection(String className){
+         students = new ArrayList<Student>();
+         assignments = new ArrayList<Assignment>();
+         gradeRanges = new double[12];
+         name = className;
      }
     
+     public String getName(){
+         return name;
+     }
+     
+     public void setName(String className){
+         name = className;
+     }
+     
     public List getNames(){
         List<String> names = new ArrayList<String>();
         for(Student student: students){

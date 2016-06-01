@@ -17,13 +17,13 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
-              <MenuItem mnemonicParsing="false" text="Add Section" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-                  <MenuItem mnemonicParsing="false" text="Rename Section" />
-                  <MenuItem mnemonicParsing="false" text="Delete Section" />
+              <MenuItem fx:id="addClass" mnemonicParsing="false" onAction="#addClass" text="Add Class" />
+                  <MenuItem fx:id="renameClass" mnemonicParsing="false" onAction="#renameClass" text="Rename Class" />
+                  <MenuItem fx:id="deleteClass" mnemonicParsing="false" text="Delete Class" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
@@ -35,7 +35,7 @@
         </menus>
       </MenuBar>
       <ScrollBar layoutX="585.0" layoutY="55.0" orientation="VERTICAL" prefHeight="343.0" prefWidth="17.0" />
-      <ChoiceBox layoutX="505.0" layoutY="29.0" prefHeight="26.0" prefWidth="97.0" />
+      <ChoiceBox fx:id="chooseClass" layoutX="505.0" layoutY="29.0" onMouseDragOver="#renameClass" prefHeight="26.0" prefWidth="97.0" />
       <Label layoutX="505.0" layoutY="55.0" prefHeight="16.0" prefWidth="82.0" text="     Sections" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="14.0" />
