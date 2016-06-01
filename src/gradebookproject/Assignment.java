@@ -18,23 +18,33 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     private Map<Student, Grade> scores;
     private Date dueDate;
     private String assignmentType;
+    private Double totalPoints;
     
     public Assignment(ClassSection c, String n){
         section = c;
         name = n;
         scores = new TreeMap<Student, Grade>();
-        updateStudentMap();
         assignmentType = null;
         dueDate = null;
+        totalPoints = 100.0;
+        updateStudentMap();
     }
     
     public void updateStudentMap(){
         for(Student s : section.getStudentList()){
             if(!scores.keySet().contains(s)){
-                scores.put(s, new Grade(100.0, section));
+                scores.put(s, new Grade(totalPoints, section, this));
             }
             
         }
+    }
+    
+    public Double getPointValue(){
+        return totalPoints;
+    }
+    
+    public void setPointValue(Double d){
+        totalPoints = d;
     }
     
     public String getName(){
@@ -73,14 +83,16 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     
     @Override
     public String toString(){
+        String ret = name + " (";
         if(assignmentType != null && dueDate != null){
-            return name + " (" + assignmentType + " Due on: " + dateString() + ")";
+            ret += assignmentType + " Due on: " + dateString() + "; ";
         } else if(assignmentType != null){
-            return name + " (" + assignmentType + ")";
+            ret += assignmentType + "; ";
         } else if(dueDate !=null){
-            return name + " (Due on: " + dateString() + ")";
+            ret += "Due on: " + dateString() + "; ";
         }
-        return name;
+        ret += "Point Value = " + totalPoints.toString() +")";
+        return ret;
     }
     
     public String dateString(){

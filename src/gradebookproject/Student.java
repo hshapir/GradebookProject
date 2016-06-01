@@ -22,26 +22,26 @@ public class Student implements Comparable<Student>, Serializable{
         name = n;
         enrolledClass = c;
         for(Assignment a : enrolledClass.getAssignments()){
-            scores.add(new Grade(0.0, enrolledClass));
+            scores.add(new Grade(0.0, enrolledClass, a));
         }
         updateAverage();
     }
 
     public void updateAverage(){
         double sum = 0;
-        double numGrades = 0;
+        double pointsAvailable = 0;
         for(Assignment a : enrolledClass.getAssignments()){
             if(a.getGrade(this) != null){
                 sum += a.getGrade(this).getNumericalValue();
                 if(!a.getGrade(this).excused()){
-                    numGrades++;
+                    pointsAvailable += a.getPointValue();
                 }
             }
         }
-        if(numGrades > 0){
-            average = sum/numGrades;
+        if(pointsAvailable > 0){
+            average = sum/pointsAvailable * 100.0;
         } else {
-        average = 100.0;
+            average = 100.0;
         }
     }
     
@@ -76,19 +76,19 @@ public class Student implements Comparable<Student>, Serializable{
         for(String s : enrolledClass.getAssignmentTypes()){
             if(s != null){
                 double typeSum = 0;
-                double numOfType = 0;
+                double typePointsAvailable = 0;
                 for(Assignment a : enrolledClass.getAssignments()){
                     if(a.getAssignmentType() != null){
                         if(a.getAssignmentType().equals(s)){
                             typeSum += a.getGrade(this).getNumericalValue();
                             if(!a.getGrade(this).excused()){
-                                numOfType++;
+                                typePointsAvailable += a.getPointValue();
                             }
                         }
                     }
                 }
-                if(numOfType != 0){
-                    ret[i] = typeSum / numOfType;
+                if(typePointsAvailable != 0){
+                    ret[i] = typeSum / typePointsAvailable * 100.0;
                     i++;
                 } else{
                     ret[i] = null;

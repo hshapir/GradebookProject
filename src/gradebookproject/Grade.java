@@ -15,11 +15,13 @@ class Grade implements Serializable {
     private Double value;
     private String stringValue;
     private ClassSection section;
+    private Assignment assignment;
     
-    public Grade(Double inputValue, ClassSection csec){
+    public Grade(Double inputValue, ClassSection csec, Assignment a){
         value = inputValue;
         stringValue = inputValue.toString();
         section = csec;
+        assignment = a;
     }
     
     public Grade(String inputValue, ClassSection csec){
@@ -66,7 +68,7 @@ class Grade implements Serializable {
                 } else if(inputValue.equals("excused")){
                     value = 0.0;
                 }
-                
+                value = value * assignment.getPointValue() / 100.0;
             }
         } 
         

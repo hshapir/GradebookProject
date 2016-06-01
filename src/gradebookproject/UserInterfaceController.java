@@ -259,6 +259,7 @@ public class UserInterfaceController implements Initializable {
                 currentSection.addAssignment(new Assignment(currentSection, result.get()));
                 currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
                 currentSection.findAssignment(result.get()).setAssignmentType(this.assignmentTypeDialog());
+                currentSection.findAssignment(result.get()).setPointValue(this.assignmentPointValueDialog());
             }
             updateTable();
         }
@@ -292,6 +293,32 @@ public class UserInterfaceController implements Initializable {
         return null;
     }
     
+    public Double assignmentPointValueDialog(){
+        Double ret = null;
+        TextInputDialog newTypeDialog = new TextInputDialog("");
+        newTypeDialog.setTitle("Assignment Point Value");
+        newTypeDialog.setHeaderText(null);
+        TextField newType = new TextField();
+        newType.setPromptText("Point Value");
+        newTypeDialog.setContentText("Point Value of this assignment. Please enter any positive number without additional text");
+        Optional<String> result = newTypeDialog.showAndWait();
+        if(result.isPresent()){
+            try{
+                ret = Double.parseDouble(result.get());
+            } catch (Exception e){
+                if(!result.get().equals("")){
+                    Alert invalidValueAlert = new Alert(Alert.AlertType.INFORMATION);
+                    invalidValueAlert.setTitle("Invalid Value");
+                    invalidValueAlert.setHeaderText(null);
+                    invalidValueAlert.setContentText("Please enter a valid number or leave the field blank");
+                    invalidValueAlert.showAndWait();
+                    ret = assignmentPointValueDialog();
+                }
+            }
+        }
+        return ret;
+    }
+    
     public void changeAssignment(){
         ChoiceDialog<String> dialog = new ChoiceDialog<>("", currentSection.getAssignmentNames());
         dialog.setTitle("Select Assignment");
@@ -319,6 +346,7 @@ public class UserInterfaceController implements Initializable {
                     currentSection.findAssignment(newNameString).setDueDate(this.assignmentDateDialog());
                     currentSection.findAssignment(newNameString).setAssignmentType(this.assignmentTypeDialog());
                     currentSection.updateAssignmentTypes();
+                    currentSection.findAssignment(newNameString).setPointValue(this.assignmentPointValueDialog());
                 }
             }
         }
