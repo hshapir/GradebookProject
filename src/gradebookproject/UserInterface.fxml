@@ -22,7 +22,7 @@
                 </Menu>
                   <Menu mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem fx:id="changeAssignmentButton" mnemonicParsing="false" onAction="#changeAssignment" text="Change Assignment" />
+                        <MenuItem fx:id="changeAssignmentButton" mnemonicParsing="false" onAction="#changeAssignment" text="Edit Assignment" />
                         <MenuItem fx:id="createAssignmentButton" mnemonicParsing="false" onAction="#createAssignment" text="Create Assignment" />
                         <MenuItem fx:id="deleteAssignmentButton" mnemonicParsing="false" onAction="#deleteAssignment" text="Delete Assignment" />
                         <MenuItem fx:id="renameStudentButton" mnemonicParsing="false" onAction="#renameStudent" text="Rename Student" />

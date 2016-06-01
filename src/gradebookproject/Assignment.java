@@ -39,12 +39,24 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         }
     }
     
+    public void purgeStudentMap(){
+        for(Student s : section.getStudentList()){
+            if(scores.keySet().contains(s)){
+                scores.remove(s);
+            }
+        }
+    }
+    
     public Double getPointValue(){
         return totalPoints;
     }
     
     public void setPointValue(Double d){
-        totalPoints = d;
+        if(d != null && d != totalPoints){
+            totalPoints = d;
+            purgeStudentMap();
+            updateStudentMap();
+        }
     }
     
     public String getName(){

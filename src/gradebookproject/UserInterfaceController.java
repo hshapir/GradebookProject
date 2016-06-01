@@ -306,7 +306,7 @@ public class UserInterfaceController implements Initializable {
             try{
                 ret = Double.parseDouble(result.get());
             } catch (Exception e){
-                if(!result.get().equals("")){
+                if(!result.get().equals("") && result.get() != null){
                     Alert invalidValueAlert = new Alert(Alert.AlertType.INFORMATION);
                     invalidValueAlert.setTitle("Invalid Value");
                     invalidValueAlert.setHeaderText(null);
@@ -327,14 +327,14 @@ public class UserInterfaceController implements Initializable {
         Optional<String> oldName = dialog.showAndWait();
         if(oldName.isPresent()){
             TextInputDialog newNameDialog = new TextInputDialog("");
-            newNameDialog.setTitle("Rename Assignment");
+            newNameDialog.setTitle("Edit Assignment");
             newNameDialog.setHeaderText("");
             TextField newName = new TextField();
             newName.setPromptText("New Name");
-            newNameDialog.setContentText("Assignment's New Name:");
+            newNameDialog.setContentText("Set Assignment Name:");
             Optional<String> result = newNameDialog.showAndWait();
             if (result.isPresent()){
-                if(currentSection.findAssignment(result.get()) != null){
+                if(currentSection.findAssignment(result.get()) != null && ! result.get().equals(oldName.get())){
                 Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
                 invalidNameAlert.setTitle("Invalid Assignment Name");
                 invalidNameAlert.setHeaderText(null);
@@ -342,9 +342,16 @@ public class UserInterfaceController implements Initializable {
                 invalidNameAlert.showAndWait();
                 } else{
                     String newNameString = result.get();
-                    currentSection.findAssignment(oldName.get()).setName(newNameString);
+                    if(!newNameString.equals("")){
+                        currentSection.findAssignment(oldName.get()).setName(newNameString);
+                    } else{
+                        newNameString = oldName.get();
+                    }
                     currentSection.findAssignment(newNameString).setDueDate(this.assignmentDateDialog());
-                    currentSection.findAssignment(newNameString).setAssignmentType(this.assignmentTypeDialog());
+                    String newType = this.assignmentTypeDialog();
+                    if(!newType.equals("")){
+                        currentSection.findAssignment(newNameString).setAssignmentType(newType);
+                    }
                     currentSection.updateAssignmentTypes();
                     currentSection.findAssignment(newNameString).setPointValue(this.assignmentPointValueDialog());
                 }
