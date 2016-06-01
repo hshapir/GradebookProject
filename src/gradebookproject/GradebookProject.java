@@ -47,9 +47,17 @@ public class GradebookProject extends Application {
         return names;
     }
     
+    public static void removeClass(String name){
+        for(int i = 0; i<allClasses.size();i++){
+            if(allClasses.get(i).getName().matches(name)){
+                allClasses.remove(i);
+            }
+        }
+    }
+    
     public static ClassSection findClass(String name){
         for(int i = 0; i<allClasses.size();i++){
-            if(allClasses.get(i).getName().equals(name)){
+            if(allClasses.get(i).getName().matches(name)){
                 return allClasses.get(i);
             }
         }

@@ -110,9 +110,15 @@ public class StartPageController implements Initializable {
     }
     
     public void deleteClass(){
-        
+        ChoiceDialog<String> dialog = new ChoiceDialog<>("", GradebookProject.getNames());
+        dialog.setTitle("Rename Class");
+        dialog.setHeaderText("");
+        dialog.setContentText("Choose Class:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent()){
+            GradebookProject.removeClass(result.get());
+        }
         updateList();
     }
-    
     
 }
