@@ -8,6 +8,9 @@ package gradebookproject;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import static javafx.collections.FXCollections.observableArrayList;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,8 +34,16 @@ public class GradebookProject extends Application {
         currentSection = allClasses.get(0);
     }
     
-    public static List returnAllClasses(){
+    public static List<ClassSection> returnAllClasses(){
         return allClasses;
+    }
+    
+    public static ObservableList<String> getClassSectionNamesObservable(){
+        ObservableList<String> ret = FXCollections.observableArrayList();
+        for(String s : GradebookProject.getNames()){
+            ret.add(s);
+        }
+        return ret;
     }
     
     public static void addClass(ClassSection newClass){

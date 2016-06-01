@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -34,13 +32,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ScrollBar layoutX="585.0" layoutY="55.0" orientation="VERTICAL" prefHeight="343.0" prefWidth="17.0" />
       <ChoiceBox fx:id="chooseClass" layoutX="505.0" layoutY="29.0" onMouseDragOver="#renameClass" prefHeight="26.0" prefWidth="97.0" />
-      <Label layoutX="505.0" layoutY="55.0" prefHeight="16.0" prefWidth="82.0" text="     Sections" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Label>
       <TextArea layoutY="29.0" prefHeight="371.0" prefWidth="505.0" text="Welcome to Dheven's Gradebook! To access your preferred section, please click on the dropdown menu above and to the right!" wrapText="true">
          <font>
             <Font name="Lucida Console" size="39.0" />

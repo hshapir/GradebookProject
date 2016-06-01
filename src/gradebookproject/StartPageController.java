@@ -9,7 +9,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
+import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -50,11 +50,17 @@ public class StartPageController implements Initializable {
     }    
     
     public void updateList(){
-         chooseClass = new ChoiceBox();
-         for(String s : GradebookProject.getNames()){
-             chooseClass.getItems().addAll(s);
-         }
+         chooseClass.setItems(GradebookProject.getClassSectionNamesObservable());
+         chooseClass.setValue(GradebookProject.getClassSectionNamesObservable().get(0));
          
+         
+    }
+    
+    
+    
+    public void changePage(){
+        
+        
     }
     
     public void addClass(){
