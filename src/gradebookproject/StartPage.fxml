@@ -27,7 +27,6 @@
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#infoShare" text="About" />
-                  <MenuItem mnemonicParsing="false" text="Settings" />
             </items>
           </Menu>
         </menus>
