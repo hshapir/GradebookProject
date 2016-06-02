@@ -5,6 +5,7 @@
  */
 package gradebookproject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Application;
@@ -23,10 +24,39 @@ import javafx.stage.Stage;
 public class GradebookProject extends Application {
     private static List<ClassSection> allClasses;
     private static ClassSection currentSection;
+    private Stage mainWindow;
+    private static GradebookProject gradebookInstance;
+    
     
     public GradebookProject(){
         reset();
     }
+    
+    public static GradebookProject getGradebookInstance(String className){
+        currentSection = findClass(className);
+        return gradebookInstance;
+    }
+    
+    public void showClass() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("UserInterfaceController.fxml"));
+        
+        Scene scene = new Scene(root);
+        //scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
+        
+        this.mainWindow.setScene(scene);
+        this.mainWindow.show();
+    }
+    
+    public void showStart() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("StartPageController.fxml"));
+        
+        Scene scene = new Scene(root);
+        //scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
+        
+        this.mainWindow.setScene(scene);
+        this.mainWindow.show();
+    }
+    
 
     public static void reset() {
         allClasses = new ArrayList<ClassSection>();
@@ -105,7 +135,7 @@ public class GradebookProject extends Application {
     public void stop() {
         GradebookProject.save();
     }
-    
+   
     public static ClassSection getCurrentSection(){
         return currentSection;
     }

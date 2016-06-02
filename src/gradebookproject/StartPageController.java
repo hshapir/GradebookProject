@@ -5,10 +5,13 @@
  */
 package gradebookproject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -52,15 +55,14 @@ public class StartPageController implements Initializable {
     public void updateList(){
          chooseClass.setItems(GradebookProject.getClassSectionNamesObservable());
          chooseClass.setValue(GradebookProject.getClassSectionNamesObservable().get(0));
-         
-         
     }
     
-    
-    
     public void changePage(){
-        
-        
+        try {
+            GradebookProject.getGradebookInstance(chooseClass.getValue().toString()).showClass();
+        } catch (IOException ex) {
+            Logger.getLogger(UserInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
     
     public void addClass(){
@@ -101,7 +103,7 @@ public class StartPageController implements Initializable {
             newNameDialog.setContentText("Assignment's New Name:");
             Optional<String> resultName = newNameDialog.showAndWait();
             if (resultName.isPresent()){
-                if(GradebookProject.findClass(result.get()) != null){
+                if(GradebookProject.findClass(result.get()) == null){
                     Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
                     invalidNameAlert.setTitle("Invalid Class Name");
                     invalidNameAlert.setHeaderText(null);

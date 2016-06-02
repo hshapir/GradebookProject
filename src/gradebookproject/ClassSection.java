@@ -24,11 +24,11 @@ class ClassSection implements Serializable {
      private double[] gradeRanges; 
      private String name;
      
-     /*public ClassSection(){
+     public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
          gradeRanges = new double[12];
-     }*/
+     }
      
      public ClassSection(String className){
          students = new ArrayList<Student>();
@@ -127,6 +127,11 @@ class ClassSection implements Serializable {
             allData.add(dataRow);
         }
         return allData;
+    }
+    
+    @Override
+    public String toString(){
+        return name;
     }
     
 }
