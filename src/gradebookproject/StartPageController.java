@@ -19,6 +19,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.MenuItem;
@@ -136,5 +137,14 @@ public class StartPageController implements Initializable, ChangeListener<String
     
     public void close() {
         Platform.exit();
+    }
+    
+    public void infoShare() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Gradebook Information");
+        alert.setContentText("Welcome to our Gradebook, presented by Dheven! In order to create or navigate between classes, click on the dropdown menu to the right. In order to exit the program, please click on the File menu.");
+        
+        alert.showAndWait();
     }
 }
