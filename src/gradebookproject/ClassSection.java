@@ -18,11 +18,12 @@ import javafx.collections.transformation.SortedList;
  *
  * @author csstudent
  */
-class ClassSection implements Serializable {
+class ClassSection implements Serializable, Comparable<ClassSection> {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
      private double[] gradeRanges; 
      private List<String> assignmentTypes;
+     private String name;
      
      public ClassSection(){
          students = new ArrayList<Student>();
@@ -45,7 +46,30 @@ class ClassSection implements Serializable {
          updateAssignmentTypes();
          return assignmentTypes;
      }
+     
+     public ClassSection(String className){
+         students = new ArrayList<Student>();
+         assignments = new ArrayList<Assignment>();
+         gradeRanges = new double[12];
+         name = className;
+     }
+     
+     public int compareTo(ClassSection csec){
+         if(name.equals(csec.name)){
+             return 0;
+         }else {
+             return 1;
+         }
+     }
     
+     public String getName(){
+         return name;
+     }
+     
+     public void setName(String className){
+         name = className;
+     }
+     
     public List getNames(){
         List<String> names = new ArrayList<String>();
         for(Student student: students){
@@ -155,6 +179,11 @@ class ClassSection implements Serializable {
         }
         allData.add(averageScoresRow);
         return allData;
+    }
+    
+    @Override
+    public String toString(){
+        return name;
     }
     
 }

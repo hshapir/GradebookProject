@@ -5,6 +5,7 @@
  */
 package gradebookproject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,15 @@ public class UserInterfaceController implements Initializable {
     
     @FXML
     private MenuItem changeAssignmentButton;
+    
+    @FXML
+    private MenuItem backToStartButton;
+    
+    public void toStart() {
+        try{
+            GradebookProject.getGradebookInstance(currentSection.toString()).showStart();
+        } catch (IOException e){}
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -181,14 +191,6 @@ public class UserInterfaceController implements Initializable {
         }
         updateTable();
         
-        /*TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Delete Student");
-        dialog.setHeaderText("");
-        dialog.setContentText("Student's Name:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
-        }*/
     }
     
     public void renameStudent(){
@@ -231,14 +233,7 @@ public class UserInterfaceController implements Initializable {
         }
         
         updateTable();
-        /*TextInputDialog dialog = new TextInputDialog("");
-        dialog.setTitle("Delete Assignment");
-        dialog.setHeaderText("");
-        dialog.setContentText("Assignment Name:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()){
-            System.out.println("Your name: " + result.get());
-        }*/
+        
     }
     
     public void createAssignment(){
