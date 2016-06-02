@@ -5,6 +5,7 @@
  */
 package gradebookproject;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,15 @@ public class UserInterfaceController implements Initializable {
     
     @FXML
     private MenuItem changeAssignmentButton;
+    
+    @FXML
+    private MenuItem backToStartButton;
+    
+    public void toStart() {
+        try{
+            GradebookProject.getGradebookInstance(currentSection.toString()).showStart();
+        } catch (IOException e){}
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

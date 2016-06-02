@@ -32,7 +32,7 @@
           </Menu>
         </menus>
       </MenuBar>
-      <ChoiceBox fx:id="chooseClass" layoutX="505.0" layoutY="29.0" onMouseEntered="#changePage" prefHeight="26.0" prefWidth="97.0" />
+      <ChoiceBox fx:id="chooseClass" layoutX="505.0" layoutY="29.0" prefHeight="26.0" prefWidth="97.0" />
       <TextArea layoutY="29.0" prefHeight="371.0" prefWidth="505.0" text="Welcome to Dheven's Gradebook! To access your preferred section, please click on the dropdown menu above and to the right!" wrapText="true">
          <font>
             <Font name="Lucida Console" size="39.0" />

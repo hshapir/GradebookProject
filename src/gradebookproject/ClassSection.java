@@ -18,7 +18,7 @@ import javafx.collections.transformation.SortedList;
  *
  * @author csstudent
  */
-class ClassSection implements Serializable {
+class ClassSection implements Serializable, Comparable<ClassSection> {
      private List<Student> students;
      private ArrayList<Assignment> assignments;
      private double[] gradeRanges; 
@@ -35,6 +35,14 @@ class ClassSection implements Serializable {
          assignments = new ArrayList<Assignment>();
          gradeRanges = new double[12];
          name = className;
+     }
+     
+     public int compareTo(ClassSection csec){
+         if(name.equals(csec.name)){
+             return 0;
+         }else {
+             return 1;
+         }
      }
     
      public String getName(){

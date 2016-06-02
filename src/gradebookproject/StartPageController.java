@@ -12,7 +12,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.InvalidationListener;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -27,13 +30,21 @@ import javafx.scene.control.TextInputDialog;
  *
  * @author csstudent
  */
-public class StartPageController implements Initializable {
+public class StartPageController implements Initializable, ChangeListener<String> {
 
     /**
      * Initializes the controller class.
      */
     @FXML
     private ChoiceBox chooseClass;
+    
+    public void changed(ObservableValue ov, String value, String newValue) {
+         try {
+            GradebookProject.getGradebookInstance(chooseClass.getValue().toString()).showClass();
+        } catch (IOException ex) {
+            Logger.getLogger(UserInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     }
     
     @FXML
     private MenuItem addClass;
@@ -44,25 +55,19 @@ public class StartPageController implements Initializable {
     @FXML
     private MenuItem deleteClass;
     
-    private List allClasses;
+    private List<ClassSection> allClasses;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        chooseClass.getSelectionModel().selectedItemProperty().addListener(this);
         allClasses = GradebookProject.returnAllClasses();
         updateList();
-    }    
+    }   
+     
     
     public void updateList(){
          chooseClass.setItems(GradebookProject.getClassSectionNamesObservable());
-         chooseClass.setValue(GradebookProject.getClassSectionNamesObservable().get(0));
-    }
-    
-    public void changePage(){
-        try {
-            GradebookProject.getGradebookInstance(chooseClass.getValue().toString()).showClass();
-        } catch (IOException ex) {
-            Logger.getLogger(UserInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+         //chooseClass.setValue(GradebookProject.getClassSectionNamesObservable().get(0));
     }
     
     public void addClass(){
@@ -78,9 +83,9 @@ public class StartPageController implements Initializable {
                 invalidNameAlert.setHeaderText(null);
                 invalidNameAlert.setContentText("You cannot have two classes with the same name. Please enter an unused class name or add a '#1' or '#2'");
                 invalidNameAlert.showAndWait();
-                
             } else{
                 GradebookProject.addClass(new ClassSection(result.get()));
+                updateList();
             }
             
         }
@@ -103,7 +108,7 @@ public class StartPageController implements Initializable {
             newNameDialog.setContentText("Assignment's New Name:");
             Optional<String> resultName = newNameDialog.showAndWait();
             if (resultName.isPresent()){
-                if(GradebookProject.findClass(result.get()) == null){
+                if(GradebookProject.findClass(result.get()) != null){
                     Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
                     invalidNameAlert.setTitle("Invalid Class Name");
                     invalidNameAlert.setHeaderText(null);
@@ -130,6 +135,6 @@ public class StartPageController implements Initializable {
     }
     
     public void close() {
-        System.exit(0);
+        Platform.exit();
     }
 }

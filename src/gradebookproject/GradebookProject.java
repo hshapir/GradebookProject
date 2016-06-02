@@ -29,16 +29,16 @@ public class GradebookProject extends Application {
     
     
     public GradebookProject(){
-        reset();
+        //reset();
     }
     
     public static GradebookProject getGradebookInstance(String className){
-        currentSection = findClass(className);
+        gradebookInstance.currentSection = findClass(className);
         return gradebookInstance;
     }
     
     public void showClass() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("UserInterfaceController.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("UserInterface.fxml"));
         
         Scene scene = new Scene(root);
         //scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
@@ -48,7 +48,7 @@ public class GradebookProject extends Application {
     }
     
     public void showStart() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("StartPageController.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
         
         Scene scene = new Scene(root);
         //scene.getStylesheets().add(getClass().getResource("stylesheet.css").toExternalForm());
@@ -59,13 +59,13 @@ public class GradebookProject extends Application {
     
 
     public static void reset() {
-        allClasses = new ArrayList<ClassSection>();
-        allClasses.add(new ClassSection("New Class"));
-        currentSection = allClasses.get(0);
+        int i = allClasses.indexOf(currentSection);
+        allClasses.set(i, new ClassSection(currentSection.getName()));
+        currentSection = allClasses.get(i);
     }
     
     public static List<ClassSection> returnAllClasses(){
-        return allClasses;
+        return gradebookInstance.allClasses;
     }
     
     public static ObservableList<String> getClassSectionNamesObservable(){
@@ -77,29 +77,30 @@ public class GradebookProject extends Application {
     }
     
     public static void addClass(ClassSection newClass){
-        allClasses.add(newClass);
+        gradebookInstance.allClasses.add(newClass);
     }
     
     public static List<String> getNames(){
         List<String> names = new ArrayList<String>();
-        for(ClassSection className: allClasses){
+        for(ClassSection className: gradebookInstance.allClasses){
             names.add(className.getName());
         }
         return names;
     }
     
     public static void removeClass(String name){
-        for(int i = 0; i<allClasses.size();i++){
-            if(allClasses.get(i).getName().matches(name)){
-                allClasses.remove(i);
+        for(int i = 0; i< gradebookInstance.allClasses.size();i++){
+            if(gradebookInstance.allClasses.get(i).getName().matches(name)){
+                gradebookInstance.allClasses.remove(i);
+                return;
             }
         }
     }
     
     public static ClassSection findClass(String name){
-        for(int i = 0; i<allClasses.size();i++){
-            if(allClasses.get(i).getName().matches(name)){
-                return allClasses.get(i);
+        for(int i = 0; i<gradebookInstance.allClasses.size();i++){
+            if(gradebookInstance.allClasses.get(i).getName().matches(name)){
+                return gradebookInstance.allClasses.get(i);
             }
         }
         return null;
@@ -111,16 +112,15 @@ public class GradebookProject extends Application {
             allClasses = Settings.getClasses();
             currentSection = allClasses.get(0);
         } else{
-            GradebookProject.allClasses = new ArrayList<ClassSection>();
+            allClasses = new ArrayList<ClassSection>();
             allClasses.add(new ClassSection("New Class"));
             currentSection = allClasses.get(0);
         }
+        this.gradebookInstance = this;
+        this.mainWindow = stage;
         Parent root = FXMLLoader.load(getClass().getResource("StartPage.fxml"));
         
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+        showStart();
     }
 
     /**
@@ -145,7 +145,7 @@ public class GradebookProject extends Application {
     }
     
     public static void save(){
-        Settings.setClasses(allClasses);
+        Settings.setClasses(gradebookInstance.allClasses);
         Settings.save();
     }
     
