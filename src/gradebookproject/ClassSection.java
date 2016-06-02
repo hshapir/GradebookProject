@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.SortedList;
@@ -24,11 +25,15 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
      private double[] gradeRanges; 
      private List<String> assignmentTypes;
      private String name;
+     private int currentStudentIdNumber;
+     private Map<String,Integer> studentNameToInt;
      
      public ClassSection(){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
          gradeRanges = new double[] {99.0, 94.0, 90.0, 88.0, 83.0, 80.0, 78.0, 73.0, 70.0, 68.0, 63.0, 60.0};
+         currentStudentIdNumber = 0;
+         studentNameToInt = new TreeMap<String,Integer>();
      }
      
      public void updateAssignmentTypes(){
@@ -47,11 +52,16 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
          return assignmentTypes;
      }
      
+     public Map<String,Integer> getIdMap(){
+         return studentNameToInt;
+     }
+     
      public ClassSection(String className){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
          gradeRanges = new double[12];
          name = className;
+         studentNameToInt = new TreeMap<String,Integer>();
      }
      
      public int compareTo(ClassSection csec){
@@ -91,6 +101,9 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
     }
     
     public void addStudent(Student newStudent){
+        studentNameToInt.put(newStudent.toString(), currentStudentIdNumber);
+        newStudent.setIdNumber(currentStudentIdNumber);
+        currentStudentIdNumber++;
         students.add(newStudent);
     }
     
@@ -103,8 +116,9 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
     }
     
     public Student findStudent(String s){
+        Integer idNum = studentNameToInt.get(s);
         for(Student stud : students){
-            if( stud.toString().equals(s)){
+            if(stud.getIdNumber() == idNum){
                 return stud;
             }
         }

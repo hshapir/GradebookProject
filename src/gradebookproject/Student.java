@@ -17,6 +17,7 @@ public class Student implements Comparable<Student>, Serializable{
     private ClassSection enrolledClass;
     private List<Grade> scores = new ArrayList<Grade>();
     private Double average;
+    private Integer idNumber;
     
     public Student(ClassSection c, String n) {
         name = n;
@@ -25,6 +26,14 @@ public class Student implements Comparable<Student>, Serializable{
             scores.add(new Grade(0.0, enrolledClass, a));
         }
         updateAverage();
+    }
+    
+    public void setIdNumber(int i){
+        idNumber = i;
+    }
+    
+    public int getIdNumber(){
+        return idNumber;
     }
 
     public void updateAverage(){
@@ -55,6 +64,7 @@ public class Student implements Comparable<Student>, Serializable{
     
     public void setName(String newName){
         name = newName;
+        enrolledClass.getIdMap().put(name, idNumber);
     }
     
     @Override
@@ -63,10 +73,19 @@ public class Student implements Comparable<Student>, Serializable{
     }
     
     public int compareTo(Student s){
-        if(name.equals(s.toString())){
-            return 0;
+        if(idNumber != null){
+            if(s.idNumber == this.idNumber){
+                return 0;
+            } else {
+                return 1;
+            }
         }
-        return 1;
+        else{
+            if(name.equals(s.toString())){
+                return 0;
+            }
+            return 1;
+        }
     }
     
     public String[] getAssignmentTypeAverages(){

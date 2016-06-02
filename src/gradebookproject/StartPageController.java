@@ -105,7 +105,7 @@ public class StartPageController implements Initializable, ChangeListener<String
             newNameDialog.setHeaderText("");
             TextField newName = new TextField();
             newName.setPromptText("New Name");
-            newNameDialog.setContentText("Assignment's New Name:");
+            newNameDialog.setContentText("Class's New Name:");
             Optional<String> resultName = newNameDialog.showAndWait();
             if (resultName.isPresent()){
                 if(GradebookProject.findClass(resultName.get()) != null){
