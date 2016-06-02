@@ -108,7 +108,7 @@ public class StartPageController implements Initializable, ChangeListener<String
             newNameDialog.setContentText("Assignment's New Name:");
             Optional<String> resultName = newNameDialog.showAndWait();
             if (resultName.isPresent()){
-                if(GradebookProject.findClass(result.get()) != null){
+                if(GradebookProject.findClass(resultName.get()) != null){
                     Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
                     invalidNameAlert.setTitle("Invalid Class Name");
                     invalidNameAlert.setHeaderText(null);
