@@ -296,7 +296,18 @@ public class UserInterfaceController implements Initializable {
             currentSection.addAssignment(new Assignment(currentSection, "Homework"));
             updateTable();
         }
-
-        
     }
+
+    /**
+     *
+     */
+
+    public void infoShare() {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText("Gradebook Information");
+            alert.setContentText("Welcome to our Gradebook, presented by Dheven! In order to edit names and scores, please double-click on what you wish to change. If that fails, see the edit menu.");
+
+            alert.showAndWait();
+        }
 }
