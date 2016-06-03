@@ -69,11 +69,27 @@ public class UserInterfaceController implements Initializable {
     @FXML
     private MenuItem backToStartButton;
     
+    @FXML
+    private MenuItem helpButton;
+    
     public void toStart() {
         try{
             GradebookProject.getGradebookInstance(currentSection.toString()).showStart();
         } catch (IOException e){}
     }
+    
+    public void helpMenu(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Gradebook Information");
+        alert.setContentText("Welcome to our Gradebook, presented by Harrison! In order to edit names and scores, please double-click on what you wish to change. If you would like to add or delete anything, go to the 'Edit' menu. "
+                + "If you would like to maniuplate assignments, their due dates, categories, and point values, please choose 'Edit Assignment' in the edit menu. Grades are initialized to 100% by default. The following inputs are acceptable: "
+                + "any raw numbers; letter grades such as A, C+, etc.; and Pass/Fail. If a student is excused from an assignment, please write 'excused' or 'Excused' into the grade blank and that assignment will not be factored into the student's"
+                + " average. You can go to reset in the File menu to reset your class data and fill the field with a sample class. Enjoy!");
+        alert.showAndWait();
+    }
+    
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

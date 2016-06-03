@@ -35,6 +35,11 @@
                       <MenuItem fx:id="backToStartButton" mnemonicParsing="false" onAction="#toStart" text="Return to Start Screen" />
                     </items>
                   </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem fx:id="helpButton" mnemonicParsing="false" onAction="#helpMenu" text="User Manual" />
+                    </items>
+                  </Menu>
               </menus>
             </MenuBar>
          </top>
