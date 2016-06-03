@@ -22,6 +22,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 
@@ -57,10 +58,14 @@ public class StartPageController implements Initializable, ChangeListener<String
     
     private List<ClassSection> allClasses;
     
+    @FXML
+    private TextArea mainLabel;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         chooseClass.getSelectionModel().selectedItemProperty().addListener(this);
         allClasses = GradebookProject.returnAllClasses();
+        mainLabel.setEditable(false);
         updateList();
     }   
      
