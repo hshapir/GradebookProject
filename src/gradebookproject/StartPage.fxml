@@ -26,14 +26,13 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-                  <MenuItem mnemonicParsing="false" text="Settings" />
+              <MenuItem mnemonicParsing="false" onAction="#infoShare" text="About" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
       <ChoiceBox fx:id="chooseClass" layoutX="505.0" layoutY="29.0" prefHeight="26.0" prefWidth="97.0" />
-      <TextArea fx:id="mainLabel" layoutY="29.0" prefHeight="371.0" prefWidth="505.0" text="Welcome to Harrison, Hayward, and Dheven's Gradebook project for 6th Period APCS! To access your preferred section, please click on the dropdown menu above and to the right!" wrapText="true">
+      <TextArea fx:id="mainLabel" editable="false" layoutY="29.0" prefHeight="371.0" prefWidth="505.0" text="Welcome to Harrison, Hayward, and Dheven's Gradebook project for 6th Period APCS! To access your preferred section, please click on the dropdown menu above and to the right!" wrapText="true">
          <font>
             <Font name="Lucida Console" size="30.0" />
          </font>
