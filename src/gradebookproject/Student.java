@@ -72,8 +72,16 @@ public class Student implements Comparable<Student>, Serializable{
         return name;
     }
     
+    public boolean equals(Student s){
+        if(this.compareTo(s) == 0){
+            return true;
+        }
+        return false;
+    }
+    
+    @Override
     public int compareTo(Student s){
-        if(idNumber != null){
+        if(this.idNumber != null && s.idNumber != null){
             if(s.idNumber == this.idNumber){
                 return 0;
             } else {

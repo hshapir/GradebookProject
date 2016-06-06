@@ -6,7 +6,10 @@
 package gradebookproject;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
+
 
 /**
  *
@@ -30,12 +33,26 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         updateStudentMap();
     }
     
+    public boolean scoresHasThisStudent(Student s){
+        for(Student stud : scores.keySet()){
+            if(stud.getIdNumber() == s.getIdNumber()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public void updateStudentMap(){
         for(Student s : section.getStudentList()){
-            if(!scores.containsKey(s)){
+            if(!scoresHasThisStudent(s)){
                 scores.put(s, new Grade(totalPoints, section, this));
             }
-            
+        }
+        
+        for(Student s : scores.keySet()){
+            if(section.getStudentList().indexOf(s) == -1){
+                scores.remove(s);
+            }
         }
     }
     
@@ -86,10 +103,20 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         scores.put(s, new Grade(newValue, section, this));
     }
     
+    public Student makeSWorkHere(Student s){
+        for(Student stud : scores.keySet()){
+            if(stud.getIdNumber() == s.getIdNumber()){
+                return stud;
+            }
+        }
+        return null;
+    }
+    
     public Grade getGrade(Student s){
         updateStudentMap();
-        if(scores.containsKey(s)){
-            return scores.get(s);
+        if(scoresHasThisStudent(s)){
+            Grade ret = scores.get(makeSWorkHere(s));
+            return ret;
         }
         return null;
     }
