@@ -25,7 +25,7 @@ public class Student implements Comparable<Student>, Serializable{
         for(Assignment a : enrolledClass.getAssignments()){
             scores.add(new Grade(0.0, enrolledClass, a));
         }
-        updateAverage();
+        //updateAverage();
     }
       
     public void setIdNumber(int i){
@@ -55,6 +55,7 @@ public class Student implements Comparable<Student>, Serializable{
     }
     
     public Double getAverage(){
+        updateAverage();
         return average;
     }
     

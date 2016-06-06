@@ -271,7 +271,7 @@ public class UserInterfaceController implements Initializable {
                 currentSection.findAssignment(result.get()).setDueDate(this.assignmentDateDialog());
                 String newType = this.assignmentTypeDialog();
                 if(!newType.equals("") || newType == null){
-                    currentSection.findAssignment(result.get()).setAssignmentType(this.assignmentTypeDialog());
+                    currentSection.findAssignment(result.get()).setAssignmentType(newType);
                 }
                 currentSection.updateAssignmentTypes();
                 currentSection.findAssignment(result.get()).setPointValue(this.assignmentPointValueDialog());

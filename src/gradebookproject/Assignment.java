@@ -49,15 +49,17 @@ public class Assignment implements Comparable<Assignment>, Serializable{
             }
         }
         
-        for(Integer i : scores.keySet()){
+        for(int i = 0; i < scores.keySet().size(); i++){
+            Integer idNum = (Integer) scores.keySet().toArray()[i];
             boolean found = false;
             for(Student s : section.getStudentList()){
-                if(s.getIdNumber() == i){
+                if(s.getIdNumber() == idNum){
                     found = true;
                 }
             }
             if(!found){
-                scores.remove(i);
+                scores.remove(idNum);
+                i--;
             }
         }
     }
@@ -152,6 +154,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     public String dateString(){
         String ret = dueDate.toString();
         ret = ret.replace("00:00:00 CST ", "");
+        ret = ret.replace("00:00:00 CDT ", "");
         return ret;
     }
     
