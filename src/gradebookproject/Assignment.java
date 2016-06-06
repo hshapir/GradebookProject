@@ -32,7 +32,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     
     public void updateStudentMap(){
         for(Student s : section.getStudentList()){
-            if(!scores.keySet().contains(s)){
+            if(!scores.containsKey(s)){
                 scores.put(s, new Grade(totalPoints, section, this));
             }
             

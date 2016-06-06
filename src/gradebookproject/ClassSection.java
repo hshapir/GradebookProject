@@ -93,7 +93,7 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
         return gradeRanges;
     }
     
-    public List getAssignmentNames(){
+    public List<String> getAssignmentNames(){
         List<String> assignmentNames = new ArrayList<String>();
         for(Assignment assignment: assignments){
             assignmentNames.add(assignment.getName());
