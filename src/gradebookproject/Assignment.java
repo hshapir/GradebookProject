@@ -18,7 +18,7 @@ import java.util.TreeMap;
 public class Assignment implements Comparable<Assignment>, Serializable{
     private ClassSection section;
     private String name;
-    private Map<Student, Grade> scores;
+    private Map<Integer, Grade> scores;
     private Date dueDate;
     private String assignmentType;
     private Double totalPoints;
@@ -26,7 +26,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     public Assignment(ClassSection c, String n){
         section = c;
         name = n;
-        scores = new TreeMap<Student, Grade>();
+        scores = new TreeMap<Integer, Grade>();
         assignmentType = null;
         dueDate = null;
         totalPoints = 100.0;
@@ -34,8 +34,8 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     }
     
     public boolean scoresHasThisStudent(Student s){
-        for(Student stud : scores.keySet()){
-            if(stud.getIdNumber() == s.getIdNumber()){
+        for(Integer i : scores.keySet()){
+            if(i == s.getIdNumber()){
                 return true;
             }
         }
@@ -45,21 +45,27 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     public void updateStudentMap(){
         for(Student s : section.getStudentList()){
             if(!scoresHasThisStudent(s)){
-                scores.put(s, new Grade(totalPoints, section, this));
+                scores.put(s.getIdNumber(), new Grade(totalPoints, section, this));
             }
         }
         
-        for(Student s : scores.keySet()){
-            if(section.getStudentList().indexOf(s) == -1){
-                scores.remove(s);
+        for(Integer i : scores.keySet()){
+            boolean found = false;
+            for(Student s : section.getStudentList()){
+                if(s.getIdNumber() == i){
+                    found = true;
+                }
+            }
+            if(!found){
+                scores.remove(i);
             }
         }
     }
     
     public void purgeStudentMap(){
         for(Student s : section.getStudentList()){
-            if(scores.keySet().contains(s)){
-                scores.remove(s);
+            if(scores.keySet().contains(s.getIdNumber())){
+                scores.remove(s.getIdNumber());
             }
         }
     }
@@ -84,9 +90,9 @@ public class Assignment implements Comparable<Assignment>, Serializable{
         updateStudentMap();
         Double sum = 0.0;
         Double numScores = 0.0;
-        for(Student s : scores.keySet()){
-            sum += getGrade(s).getNumericalValue();
-            if(!getGrade(s).excused()){
+        for(Integer i : scores.keySet()){
+            sum += getGrade(i).getNumericalValue();
+            if(!getGrade(i).excused()){
                 numScores++;
             }
         }
@@ -99,24 +105,32 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     
     public void setGrade(Student s, String newValue){
         updateStudentMap();
-        scores.remove(s);
-        scores.put(s, new Grade(newValue, section, this));
+        scores.remove(s.getIdNumber());
+        scores.put(s.getIdNumber(), new Grade(newValue, section, this));
     }
     
-    public Student makeSWorkHere(Student s){
+    /*public Student makeSWorkHere(Student s){
         for(Student stud : scores.keySet()){
             if(stud.getIdNumber() == s.getIdNumber()){
                 return stud;
             }
         }
         return null;
-    }
+    }*/
     
     public Grade getGrade(Student s){
         updateStudentMap();
         if(scoresHasThisStudent(s)){
-            Grade ret = scores.get(makeSWorkHere(s));
+            Grade ret = scores.get(s.getIdNumber());
             return ret;
+        }
+        return null;
+    }
+    
+    public Grade getGrade(Integer i){
+        updateStudentMap();
+        if(scores.keySet().contains(i)){
+            return scores.get(i);
         }
         return null;
     }
