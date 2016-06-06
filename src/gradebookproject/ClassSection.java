@@ -118,6 +118,9 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
     
     public Student findStudent(String s){
         Integer idNum = studentNameToInt.get(s);
+        if(idNum == null){
+            return null;
+        }
         for(Student stud : students){
             if(stud.getIdNumber() == idNum){
                 return stud;
