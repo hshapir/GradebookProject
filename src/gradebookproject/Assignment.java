@@ -10,7 +10,7 @@ import java.util.*;
 
 /**
  *
- * @author brucemelton
+ * 
  */
 public class Assignment implements Comparable<Assignment>, Serializable{
     private ClassSection section;
@@ -81,6 +81,7 @@ public class Assignment implements Comparable<Assignment>, Serializable{
     }
     
     public void setGrade(Student s, String newValue){
+        updateStudentMap();
         scores.remove(s);
         scores.put(s, new Grade(newValue, section, this));
     }

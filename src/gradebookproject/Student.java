@@ -27,7 +27,7 @@ public class Student implements Comparable<Student>, Serializable{
         }
         updateAverage();
     }
-    
+      
     public void setIdNumber(int i){
         idNumber = i;
     }

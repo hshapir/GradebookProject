@@ -59,8 +59,9 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
      public ClassSection(String className){
          students = new ArrayList<Student>();
          assignments = new ArrayList<Assignment>();
-         gradeRanges = new double[12];
+         gradeRanges = new double[] {99.0, 94.0, 90.0, 88.0, 83.0, 80.0, 78.0, 73.0, 70.0, 68.0, 63.0, 60.0};
          name = className;
+         currentStudentIdNumber = 0;
          studentNameToInt = new TreeMap<String,Integer>();
      }
      
@@ -80,7 +81,7 @@ class ClassSection implements Serializable, Comparable<ClassSection> {
          name = className;
      }
      
-    public List getNames(){
+    public List<String> getNames(){
         List<String> names = new ArrayList<String>();
         for(Student student: students){
             names.add(student.getName());

@@ -182,7 +182,7 @@ public class UserInterfaceController implements Initializable {
         dialog.setContentText("Name:");
         Optional<String> result = dialog.showAndWait();
         if (result.isPresent()){
-            if(currentSection.findStudent(result.get()) != null){
+            if(currentSection.getNames().indexOf(result.get()) != -1){
                 Alert invalidNameAlert = new Alert(Alert.AlertType.INFORMATION);
                 invalidNameAlert.setTitle("Invalid Student Name");
                 invalidNameAlert.setHeaderText(null);
